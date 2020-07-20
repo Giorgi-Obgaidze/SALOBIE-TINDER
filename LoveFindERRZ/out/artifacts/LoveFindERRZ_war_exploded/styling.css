@@ -1,0 +1,81 @@
+.button-container{
+    height: 100%;
+    position: relative;
+}
+
+
+button.button{
+    all:unset;
+}
+
+
+.log-in{
+    position: absolute;
+    top:10px;
+    right: 24px;
+    background-color: white;
+    color: hotpink;
+    border: 4px pink;
+    padding: 20px 40px;
+    border-radius: 4px;
+    text-align: center;
+    text-transform: uppercase;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.agree-terms{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.sign-up{
+    margin: 0;
+    position: absolute;
+    top: 500px;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: deeppink;
+    font-size: 20px;
+    border-radius: 25px;
+    padding: 25px 100px;
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+
+
+.sign-up:hover{
+    background-color: pink;
+}
+
+.log-in:hover{
+    background-color: orangered;
+    color: white;
+}
+
+.my_image{
+    width: 300px;
+    min-height: 100px;
+    border: 3px solid lightgray;
+    margin-top: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: brown;
+}
+
+.profile_image{
+    display: none;
+    width: 100%;
+}
