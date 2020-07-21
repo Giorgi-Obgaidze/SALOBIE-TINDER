@@ -19,16 +19,23 @@ public class AccountManager {
         DAdministrator = administrator;
     }
 
-    public boolean accountExists(String username){
+    public boolean accountExists(String username) throws SQLException {
+        createID(username);
+        if(DAdministrator.getData(username, user_id) != null)return true;
         return false;
     }
 
-    public boolean accessGranted(String username, String password){
+    public boolean accessGranted(String username, String password) throws SQLException {
+        createID(username);
+        String hashed_password = PasswordEncryption.generatingTheHash(password);
+        if(DAdministrator.getData(hashed_password, user_id) != null) return true;
         return false;
     }
 
-    public void createAccount(String username, String passwords){
-
+    public void createAccount(String username, String password) throws SQLException {
+        createID(username);
+        String hashed_password = PasswordEncryption.generatingTheHash(password);
+        DAdministrator.addNewAccount(username, hashed_password, user_id);
     }
 
     public String getID(){
