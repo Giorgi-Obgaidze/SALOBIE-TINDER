@@ -1,6 +1,10 @@
 package database;
 
 import javax.print.DocFlavor;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +58,13 @@ public class DataAdministrator {
         ps.executeUpdate();
     }
 
-    public void addImage(String new_image){
-
+    public void addImage(String id, int count,String new_image) throws FileNotFoundException, SQLException {
+        File image = new File(new_image);
+        FileInputStream fis = new FileInputStream(image);
+        String command = "Update users set image" + count + "=? where user_id=" + id;
+        PreparedStatement ps = connection.prepareStatement(command);
+        ps.setBinaryStream(1, (InputStream)fis, (int)(image.length()));
+        ps.executeUpdate();
     }
 
 }
