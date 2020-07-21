@@ -40,3 +40,23 @@
     height: 50%;
     width: 50%;
 }
+
+.cardSubmit{
+    background-color: deeppink;
+    font-size: 20px;
+    border-radius: 25px;
+    padding: 25px 100px;
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+.cardSubmit:hover{
+    background-color: pink;
+}
+
+.cardSubmit:hover{
+    background-color: orangered;
+    color: white;
+}

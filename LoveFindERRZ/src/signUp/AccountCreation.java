@@ -16,7 +16,9 @@ public class AccountCreation extends HttpServlet {
         DataAdministrator administrator = (DataAdministrator)getServletContext().getAttribute(DataAdministrator.AttributeName);
         AccountManager manager = new AccountManager(administrator);
         String username = request.getParameter("username");
+        //System.out.println(username);
         String password = request.getParameter("pass");
+        //System.out.println(password);
         try {
             if(manager.accountExists(username)){
                 RequestDispatcher dispatch = request.getRequestDispatcher("accountInUse.jsp");

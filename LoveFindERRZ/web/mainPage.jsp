@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>LoveFindERRZ</title>
-
+    <link rel="stylesheet" href = "styling.css">
 
 </head>
 <body>
@@ -24,10 +24,9 @@
                 <label for="agreeTerms">By checking this box you agree our </label>
                 <a href = "TermsAndConditions.jsp">Terms and Conditions</a>
             </div>
-            <div class="sign-up">
-                <button id= "signup" type="button" class = "button">SIGN UP</button>
-            </div>
-
+                <form action="registerAccount.jsp">
+                    <input type = "submit" class="sign-up" name = "signUp" value="SIGN UP">
+                </form>
         </div>
     </div>
 </body>

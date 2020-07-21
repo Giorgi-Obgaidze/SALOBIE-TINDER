@@ -20,7 +20,6 @@
         <label for = "pass">PASSWORD</label>
         <input type = "password" id = "pass" name = "pass">
         <input type = "submit" name = "submit" value="NEXT">
-
     </form>
 </body>
 </html>

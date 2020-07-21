@@ -8,9 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>IN USE</title>
 </head>
 <body>
+    <h1>The username is used</h1>
 
 </body>
 </html>

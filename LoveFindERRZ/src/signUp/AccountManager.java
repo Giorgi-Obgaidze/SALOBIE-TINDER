@@ -21,14 +21,14 @@ public class AccountManager {
 
     public boolean accountExists(String username) throws SQLException {
         createID(username);
-        if(DAdministrator.getData(username, user_id) != null)return true;
+        if(DAdministrator.getData("username", user_id) != null)return true;
         return false;
     }
 
     public boolean accessGranted(String username, String password) throws SQLException {
         createID(username);
         String hashed_password = PasswordEncryption.generatingTheHash(password);
-        if(DAdministrator.getData(hashed_password, user_id) != null) return true;
+        if(DAdministrator.getData("password", user_id) == hashed_password) return true;
         return false;
     }
 

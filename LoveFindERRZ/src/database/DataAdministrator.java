@@ -36,7 +36,7 @@ public class DataAdministrator {
 
     public String getData(String column_name, String acc_id) throws SQLException {
         Statement stm = connection.createStatement();
-        ResultSet rs = stm.executeQuery(String.format("select * from users where '%s' like '%s';", column_name, acc_id));
+        ResultSet rs = stm.executeQuery(String.format("select * from users where user_id like '%s';", acc_id));
         if(rs.next()){
             return rs.getString(column_name);
         }
