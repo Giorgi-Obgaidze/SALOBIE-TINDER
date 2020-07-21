@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Account Registration</title>
+    <link rel="stylesheet" href = "styling.css">
 </head>
 <body>
     <h1>Create New Account</h1>
