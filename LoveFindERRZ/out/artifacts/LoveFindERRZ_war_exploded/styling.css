@@ -1,6 +1,14 @@
-.button-container{
+.container{
     height: 100%;
-    position: relative;
+    width: 100%;
+}
+
+.button-container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -26,20 +34,10 @@ button.button{
     cursor: pointer;
 }
 .agree-terms{
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    margin: 5%;
 }
 .sign-up{
-    margin: 0;
-    position: absolute;
-    top: 500px;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+
     background-color: deeppink;
     font-size: 20px;
     border-radius: 25px;
