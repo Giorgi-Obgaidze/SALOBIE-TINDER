@@ -25,4 +25,15 @@
         <servlet-name>AccountCreation</servlet-name>
         <url-pattern>/AccountCreation</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <description></description>
+        <display-name>AddDescription</display-name>
+        <servlet-name>AddDescription</servlet-name>
+        <servlet-class>signUp.AddDescription</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddDescription</servlet-name>
+        <url-pattern>/AddDescription</url-pattern>
+    </servlet-mapping>
 </web-app>

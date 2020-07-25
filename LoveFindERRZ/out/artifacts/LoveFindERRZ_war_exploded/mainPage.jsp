@@ -14,7 +14,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 style="text-align:center">The Best App</h1>
+        <h1 style="text-align:center">FIND.MEAT.FUCK</h1>
         <div class="button-container">
             <div class="log-in">
                 <button id = "login" type="button" class="button">LOG IN</button>

@@ -20,10 +20,11 @@
     </div>
 </div>
 
-<form class="cardForm" id ="card" action = "AccountCreation" method="post">
+<form class="cardForm" id ="card" action = "AddDescription" method="post">
     <p>შეავსეთ თქვენი ბარათი მაქსიმუმ 50 სიტყვით</p>
     <p id="countWord">სიტყვების რაოდენობა თქვენს ბარათში - 0</p>
-    <textarea class="cardText" onkeypress="updateWordCount(event)" id="cardTextArea"></textarea>
+    <textarea class="cardText" onkeypress="updateWordCount(event)" id="cardTextArea" name="description"></textarea>
+    <input type="hidden"  name="userId" value= <%= (String)request.getAttribute("currUserId")%> >
     <button class="cardSubmit" id="cardSubmitButton" onclick="submit()">შემდეგი</button>
 </form>
 
