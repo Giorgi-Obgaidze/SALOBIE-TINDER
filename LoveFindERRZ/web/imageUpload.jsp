@@ -10,15 +10,25 @@
 <head>
     <title>Upload image</title>
     <link rel="stylesheet" href = "styling.css">
-
+    <style>
+        .close{
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: gray;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>Image preview on File Uploads</h1>
-    <input type="file" name = "image" id="imageID">
-    <div class="my_image" id = "myImage">
-        <img src="" alt="loading image" class = "profile_image">
-        <span class="default_image_message">Image ...</span>
-    </div>
+    <input id="browse" type="file" onchange="imagePreview()" multiple>
+    <div id="preview"></div>
 
     <script type="text/javascript" src = "MyWebPage.js"></script>
 </body>
