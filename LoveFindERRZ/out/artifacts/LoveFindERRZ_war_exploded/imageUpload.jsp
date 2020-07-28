@@ -27,10 +27,13 @@
 </head>
 <body>
     <h1>Image preview on File Uploads</h1>
-    <input id="browse" type="file" onchange="imagePreview()" multiple>
-    <div id="preview"></div>
+    <from action = "uploadImages" method = "post">
+        <input id="browse" type="file" onchange="imagePreview()" multiple>
+        <div id="preview"></div>
 
-    <script type="text/javascript" src = "MyWebPage.js"></script>
+        <script type="text/javascript" src = "MyWebPage.js"></script>
+        <input type = "submit" name = "submit" value="Upload">
+    </from>
 </body>
 
 </html>
