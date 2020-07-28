@@ -1,6 +1,6 @@
 var id = 0;
 var images = [];
-var availableID = [0, 1, 2 , 4, 5];
+var availableID = [0, 1, 2, 3, 4, 5];
 function imagePreview() {
 
     var preview = document.querySelector('#preview');
