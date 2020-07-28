@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -23,6 +24,13 @@ public class AccountCreation extends HttpServlet {
                 dispatch.forward(request, response);
             }else{
                 manager.createAccount(username, password);
+                File file = new File("C:\\Users\\jeose\\Desktop\\SALOBIE-TINDER\\LoveFindERRZ\\web\\IMAGES\\" + manager.getID());
+                boolean bool = file.mkdir();
+                if(bool){
+                    System.out.println("Directory created successfully");
+                }else{
+                    System.out.println("Sorry couldn’t create specified directory");
+                }
                 request.setAttribute("currUserId", manager.getID());
                 RequestDispatcher dispatch = request.getRequestDispatcher("card.jsp");
                 dispatch.forward(request, response);

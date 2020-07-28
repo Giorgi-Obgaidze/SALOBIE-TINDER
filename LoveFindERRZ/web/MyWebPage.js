@@ -1,6 +1,6 @@
 var id = 0;
 var images = [];
-var availableID = [];
+var availableID = [0, 1, 2 , 4, 5];
 function imagePreview() {
 
     var preview = document.querySelector('#preview');
@@ -17,18 +17,19 @@ function imagePreview() {
             var reader = new FileReader();
 
             reader.addEventListener("load", function () {
-                if(id >= 6){
+                if(availableID.length == 0){
                     return alert("image limit has been reached");
                 }else {
                     var image = document.createElement("IMG");
                     //new Image();
                     var close = document.createElement("button");
-                    var loc_id;
-                    if (availableID.length > 0) {
-                        let loc_id = availableID.pop();
-                    } else {
-                        let loc_id = id;
-                    }
+                    //var loc_id;
+                    //if (availableID.length > 0) {
+                    var  loc_id = availableID.pop();
+                    //} else {
+                      //  loc_id = id;
+                    //}
+
                     image.id = "image" + loc_id.toString();
                     close.id = "button" + loc_id.toString();
                     id++;
@@ -49,11 +50,15 @@ function imagePreview() {
                     close.onclick = function () {
                         var notNeeded = document.getElementById(image.id);
                         var suicideButton = document.getElementById(close.id);
-                        availableID.push(image.id);
+                        console.log(image.id);
+                        console.log(close.id);
+                        availableID.push(parseInt(image.id.substr(5), 10));
                         notNeeded.parentNode.removeChild(notNeeded);
                         suicideButton.parentNode.removeChild(suicideButton);
-                        document.removeChild(notNeeded);
-                        document.removeChild(suicideButton);
+                        //document.getElementById(image.id).remove();
+                        //document.getElementById(close.id).remove();
+                        //document.removeChild(notNeeded);
+                        //document.removeChild(suicideButton);
                     }
                     //image.appendChild(close);
                     // preview.appendChild(close);
