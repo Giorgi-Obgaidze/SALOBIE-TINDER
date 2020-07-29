@@ -1,6 +1,10 @@
 var id = 0;
 var images = [];
+<<<<<<< HEAD
 var availableID = [0, 1, 2 , 3, 4, 5];
+=======
+var availableID = [0, 1, 2, 3, 4, 5];
+>>>>>>> 79115e691f89a3123098fe2112227e19f497fe42
 function imagePreview() {
 
     var preview = document.querySelector('#preview');
