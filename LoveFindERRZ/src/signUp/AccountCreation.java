@@ -24,7 +24,7 @@ public class AccountCreation extends HttpServlet {
                 dispatch.forward(request, response);
             }else{
                 manager.createAccount(username, password);
-                File file = new File("C:\\Users\\jeose\\Desktop\\SALOBIE-TINDER\\LoveFindERRZ\\web\\IMAGES\\" + manager.getID());
+                File file = new File("home\\dex\\Desktop\\SALOBIE-TINDER\\LoveFindERRZ\\web\\IMAGES\\" + manager.getID());
                 boolean bool = file.mkdir();
                 if(bool){
                     System.out.println("Directory created successfully");

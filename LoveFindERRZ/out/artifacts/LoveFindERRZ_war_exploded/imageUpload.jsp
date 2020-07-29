@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Upload image</title>
-    <link rel="stylesheet" href = "styling.css">
+    <link rel="stylesheet" href = "imageUpload.css">
     <style>
         .close{
             color: #aaa;

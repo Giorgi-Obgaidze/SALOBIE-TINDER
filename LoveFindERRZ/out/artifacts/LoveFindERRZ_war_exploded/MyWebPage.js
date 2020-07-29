@@ -1,6 +1,6 @@
 var id = 0;
 var images = [];
-var availableID = [0, 1, 2 , 4, 5];
+var availableID = [0, 1, 2 , 3, 4, 5];
 function imagePreview() {
 
     var preview = document.querySelector('#preview');
@@ -41,12 +41,18 @@ function imagePreview() {
                     images.push(image);
 
                     //var close = document.createElement('span');
+                    close.style.borderRadius = "50%";
+                    close.style.height = "100%";
+                    close.style.width = "auto";
+                    close.style.position = "relative";
+                    close.style.left = "-30";
                     close.style.color = "#aaa";
                     close.style.float = "right";
                     close.style.fontSize = "26px";
                     close.style.fontWeight = "bold";
-                    preview.appendChild(close);
+                    close.innerHTML="X";
                     preview.appendChild(image);
+                    preview.appendChild(close);
                     close.onclick = function () {
                         var notNeeded = document.getElementById(image.id);
                         var suicideButton = document.getElementById(close.id);
