@@ -67,4 +67,46 @@ public class DataAdministrator {
         ps.executeUpdate();
     }
 
+    public void updateStatus(String chooser, String chosen, String status) throws SQLException {
+        String command = "UPDATE matchingTable set status=? where chooser=" + chooser + " And " + "chosen = " + chosen;
+        PreparedStatement ps = connection.prepareStatement(command);
+        ps.setString(1, status);
+        ps.executeUpdate();
+    }
+
+
+    public void makeFriend(String chooser, String chosen, String status) throws SQLException {
+        PreparedStatement ps = connection.prepareStatement("insert into matchingTable(chooser, chosen, status)" + "values (?, ?, ?)");
+        ps.setString(1, chooser);
+        ps.setString(2, chosen);
+        ps.setString(3, status);
+        ps.executeUpdate();
+    }
+
+    public String getStatus(String chooser, String chosen) throws SQLException {
+        String command = "SELECT status FROM matchingTable Where chooser = " + chooser + " AND " + "chosen = " + chosen;
+        Statement s = connection.createStatement();
+        ResultSet rs = s.executeQuery(command);
+        if(rs.next()){
+            return rs.getString(1);
+        }
+        return null;
+
+    }
+
+    public Connection getBaseConnection(){
+        return connection;
+    }
+
+    public List<String> getFriends(String user_id) throws SQLException {
+        List<String> myFriends = new ArrayList<>();
+        String command = "SELECT chosen FROM matchingTable WHERE status = \"match\" AND chooser = " + user_id;
+        Statement ps = connection.createStatement();
+        ResultSet rs = ps.executeQuery(command);
+        while (rs.next()){
+            myFriends.add(rs.getString(1));
+        }
+        return  myFriends;
+    }
+
 }

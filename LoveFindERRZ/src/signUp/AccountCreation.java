@@ -1,5 +1,6 @@
 package signUp;
 
+import client.User;
 import database.DataAdministrator;
 
 import javax.servlet.RequestDispatcher;
@@ -23,14 +24,17 @@ public class AccountCreation extends HttpServlet {
                 RequestDispatcher dispatch = request.getRequestDispatcher("accountInUse.jsp");
                 dispatch.forward(request, response);
             }else{
+
                 manager.createAccount(username, password);
-                File file = new File("home\\dex\\Desktop\\SALOBIE-TINDER\\LoveFindERRZ\\web\\IMAGES\\" + manager.getID());
+                File file = new File("C:\\Users\\jeose\\Desktop\\SALOBIE-TINDER\\LoveFindERRZ\\web\\IMAGES" + manager.getID());
                 boolean bool = file.mkdir();
                 if(bool){
                     System.out.println("Directory created successfully");
                 }else{
                     System.out.println("Sorry couldn’t create specified directory");
                 }
+                User user = new User(manager.getID(), administrator);
+                request.getSession().setAttribute("user", user);
                 request.setAttribute("currUserId", manager.getID());
                 RequestDispatcher dispatch = request.getRequestDispatcher("card.jsp");
                 dispatch.forward(request, response);
