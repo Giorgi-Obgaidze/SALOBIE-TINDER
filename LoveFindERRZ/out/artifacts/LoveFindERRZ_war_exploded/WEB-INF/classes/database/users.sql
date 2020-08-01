@@ -11,7 +11,7 @@ CREATE TABLE users(
     password CHAR(255) not null,
     description VARCHAR(15000),
     imageCount INT DEFAULT 0,
-    image1 CHAR(255) ,
+    image1 CHAR(255),
     image2 CHAR(255),
     image3 CHAR(255),
     image4 CHAR(255),
@@ -22,5 +22,6 @@ CREATE TABLE users(
 
 CREATE TABLE matchingTable(
     chooser DECIMAL (65),
-    chosen DECIMAL (65)
+    chosen DECIMAL (65),
+    status CHAR(20)
 );

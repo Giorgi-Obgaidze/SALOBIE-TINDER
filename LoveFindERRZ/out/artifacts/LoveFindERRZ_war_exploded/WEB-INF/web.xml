@@ -47,4 +47,15 @@
         <servlet-name>uploadImages</servlet-name>
         <url-pattern>/uploadImages</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <description></description>
+        <display-name>LogInServlet</display-name>
+        <servlet-name>LogInServlet</servlet-name>
+        <servlet-class>LogIn.LogInServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogInServlet</servlet-name>
+        <url-pattern>/LogInServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

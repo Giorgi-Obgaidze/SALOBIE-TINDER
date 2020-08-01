@@ -28,7 +28,7 @@ public class AccountManager {
     public boolean accessGranted(String username, String password) throws SQLException {
         createID(username);
         String hashed_password = PasswordEncryption.generatingTheHash(password);
-        if(DAdministrator.getData("password", user_id) == hashed_password) return true;
+        if(DAdministrator.getData("password", user_id).equals(hashed_password)) return true;
         return false;
     }
 
