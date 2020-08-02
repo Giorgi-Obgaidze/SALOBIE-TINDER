@@ -9,7 +9,10 @@
 <html>
 <head>
     <title>Upload image</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous">
+    </script>
     <link rel="stylesheet" href = "imageUpload.css">
+
     <style>
         .close{
             color: #aaa;
@@ -27,13 +30,11 @@
 </head>
 <body>
     <h1>Image preview on File Uploads</h1>
-    <from action = "uploadImages" method = "post">
-        <input id="browse" type="file" onchange="imagePreview()" multiple>
-        <div id="preview"></div>
+    <input id="browse" type="file" onchange="imagePreview()" multiple>
+    <div id="preview"></div>
 
-        <script type="text/javascript" src = "MyWebPage.js"></script>
-        <input type = "submit" name = "submit" value="Upload">
-    </from>
+    <script type="text/javascript" src = "imagePage.js"></script>
+    <button onclick="ImageUpload()" id = "submit_img" >SUBMIT</button>
 </body>
 
 </html>

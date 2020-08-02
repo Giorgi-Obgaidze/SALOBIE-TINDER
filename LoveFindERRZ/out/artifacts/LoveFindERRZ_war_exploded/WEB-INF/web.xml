@@ -39,13 +39,13 @@
 
     <servlet>
         <description></description>
-        <display-name>uploadImages</display-name>
-        <servlet-name>uploadImages</servlet-name>
-        <servlet-class>signUp.uploadImages</servlet-class>
+        <display-name>UploadImages</display-name>
+        <servlet-name>UploadImages</servlet-name>
+        <servlet-class>signUp.UploadImages</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>uploadImages</servlet-name>
-        <url-pattern>/uploadImages</url-pattern>
+        <servlet-name>UploadImages</servlet-name>
+        <url-pattern>/UploadImages</url-pattern>
     </servlet-mapping>
 
     <servlet>

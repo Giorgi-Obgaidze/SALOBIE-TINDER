@@ -1,6 +1,6 @@
 var id = 0;
 var images = [];
-var availableID = [0, 1, 2 , 3, 4, 5];
+var availableID = [5, 4, 3 , 2, 1, 0];
 
 function imagePreview() {
 
@@ -79,6 +79,31 @@ function imagePreview() {
 
     }
 }
+
+function ImageUpload(){
+    var i;
+    for(i = 0; i < 6; i++)
+    {
+        if(availableID.indexOf(i)==-1) {
+            var imageID = "image" + i.toString();
+            var data = document.getElementById(imageID);
+            var imageName = data.title;
+            console.log(data);
+            console.log(images[0]);
+            data = data.replace(/^data:image\/\w+;base64,/, "");
+            $.ajax({
+                url: "UploadImages",
+                type: 'POST',
+                data: {
+                    elem: data,
+                    name: imageName,
+                    title: imageID
+                }
+            });
+        }
+    }
+}
+
 
 // document.getElementById("button0").onclick = function(){
 //     consol.log("blaaaa");
