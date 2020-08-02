@@ -11,12 +11,7 @@ CREATE TABLE users(
     password CHAR(255) not null,
     description VARCHAR(15000),
     imageCount INT DEFAULT 0,
-    image1 CHAR(255),
-    image2 CHAR(255),
-    image3 CHAR(255),
-    image4 CHAR(255),
-    image5 CHAR(255),
-    image6 CHAR(255)
+    imageFolder CHAR(255)
 
 );
 

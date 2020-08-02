@@ -32,10 +32,10 @@ public class AccountManager {
         return false;
     }
 
-    public void createAccount(String username, String password) throws SQLException {
+    public void createAccount(String username, String password, String folderPath) throws SQLException {
         createID(username);
         String hashed_password = PasswordEncryption.generatingTheHash(password);
-        DAdministrator.addNewAccount(username, hashed_password, user_id);
+        DAdministrator.addNewAccount(username, hashed_password, user_id, folderPath + user_id);
     }
 
     public String getID(){

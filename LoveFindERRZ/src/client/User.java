@@ -9,14 +9,20 @@ public class User {
     private String username_id;
     private List<String> friendList;
     private DataAdministrator dataAdministrator;
+    private String imageFolderPath;
     public User(String username_id, DataAdministrator dataAdministrator) throws SQLException {
         this.username_id = username_id;
         this.dataAdministrator = dataAdministrator;
         friendList = this.dataAdministrator.getFriends(username_id);
+        imageFolderPath = dataAdministrator.getImagePath(username_id);
     }
 
     public List<String> myFriends(){
         return friendList;
+    }
+
+    public String getImageFolderPath() {
+        return imageFolderPath;
     }
 
     public String getUserId(){

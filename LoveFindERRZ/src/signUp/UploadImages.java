@@ -30,7 +30,7 @@ public class UploadImages extends HttpServlet {
             System.out.println(type);
             Base64.Decoder decoder = Base64.getDecoder();
             byte[] decoded = decoder.decode(base64data);
-            String relativeWebPath = "/IMAGES/images" + user.getUserId() + "/" + imageTitle + type;
+            String relativeWebPath = user.getImageFolderPath() + "/" + imageTitle + type;
             String path = getServletContext().getRealPath(relativeWebPath);
             System.out.println(path);
             try (OutputStream out1 = new BufferedOutputStream(new FileOutputStream(path))) {

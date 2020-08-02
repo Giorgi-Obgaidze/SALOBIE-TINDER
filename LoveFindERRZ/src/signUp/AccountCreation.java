@@ -25,8 +25,10 @@ public class AccountCreation extends HttpServlet {
                 dispatch.forward(request, response);
             }else{
 
-                manager.createAccount(username, password);
-                String relativeWebPath = "/IMAGES/images" + manager.getID();
+
+                String relativeWebPath = "/IMAGES/images";
+                manager.createAccount(username, password, relativeWebPath);
+                relativeWebPath += manager.getID();
                 String absoluteDiskPath = getServletContext().getRealPath(relativeWebPath);
                 File file = new File(absoluteDiskPath);
                 //System.out.println(absoluteDiskPath);

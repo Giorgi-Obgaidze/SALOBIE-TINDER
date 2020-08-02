@@ -43,11 +43,14 @@ public class DataAdministrator {
         return null;
     }
 
-    public void addNewAccount(String username, String password, String id) throws SQLException {
-        PreparedStatement ps = connection.prepareStatement("insert into users(user_id, username, password) " + "values(?, ?, ?)");
+    public void addNewAccount(String username, String password, String id, String folderPath) throws SQLException {
+        PreparedStatement ps = connection.prepareStatement("insert into users(user_id, username, password, imageCount, imageFolder) " + "values(?, ?, ?, ?, ?)");
         ps.setString(1, id);
         ps.setString(2, username);
         ps.setString(3, password);
+        ps.setInt(4, 0);
+        ps.setString(5, folderPath);
+
         ps.executeUpdate();
     }
 
@@ -81,6 +84,16 @@ public class DataAdministrator {
         ps.setString(2, chosen);
         ps.setString(3, status);
         ps.executeUpdate();
+    }
+
+    public String getImagePath(String user_id) throws SQLException {
+        String command = "Select imageFolder From users where user_id = " + user_id;
+        Statement s = connection.createStatement();
+        ResultSet rs = s.executeQuery(command);
+        if(rs.next()){
+            return rs.getString(1);
+        }
+        return null;
     }
 
     public String getStatus(String chooser, String chosen) throws SQLException {
