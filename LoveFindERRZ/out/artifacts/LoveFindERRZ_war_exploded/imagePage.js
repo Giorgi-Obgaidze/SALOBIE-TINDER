@@ -81,28 +81,30 @@ function imagePreview() {
 }
 
 function ImageUpload(){
-    var i;
-    for(i = 0; i < 6; i++)
-    {
-        if(availableID.indexOf(i)==-1) {
-            var imageID = "image" + i.toString();
-            var data = document.getElementById(imageID);
-            var imageName = data.title;
-            console.log(data);
-            console.log(images[0]);
-            data = data.replace(/^data:image\/\w+;base64,/, "");
-            $.ajax({
-                url: "UploadImages",
-                type: 'POST',
-                data: {
-                    elem: data,
-                    name: imageName,
-                    title: imageID
-                }
-            });
+    let i;
+    let data = [];
+    for (i = 0; i < 6; i++) {
+        if(availableID.indexOf(i) === -1) {
+            let imageID = "image" + i.toString();
+            let image = document.getElementById(imageID);
+            let imageTitle = image.title;
+            let imageData = image.src.replace(/^data:image\/\w+;base64,/, "");
+            console.log("image", image)
+            //console.log("imageTitle", imageTitle);
+            //console.log("imageData", imageData);
+            let imgData = {elem: imageData, name: imageTitle, title: imageID};
+            data.push(imgData)
         }
     }
+    console.log(data);
+    $.ajax({
+        url: "UploadImages",
+        type: 'POST',
+        data: JSON.stringify(data),
+        dataType: 'json'
+    });
 }
+
 
 // document.getElementById("button0").onclick = function(){
 //     consol.log("blaaaa");
