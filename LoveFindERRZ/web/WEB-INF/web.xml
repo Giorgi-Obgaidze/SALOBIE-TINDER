@@ -58,4 +58,15 @@
         <servlet-name>LogInServlet</servlet-name>
         <url-pattern>/LogInServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <description></description>
+        <display-name>FindMyMatch</display-name>
+        <servlet-name>FindMyMatch</servlet-name>
+        <servlet-class>client.FindMyMatch</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FindMyMatch</servlet-name>
+        <url-pattern>/FindMyMatch</url-pattern>
+    </servlet-mapping>
 </web-app>

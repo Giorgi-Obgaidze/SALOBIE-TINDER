@@ -122,4 +122,17 @@ public class DataAdministrator {
         return  myFriends;
     }
 
+    public String getNextMatch(String user_id) throws SQLException {
+        String command = " select user_id from users where user_id not in (select chosen from users u join matchingTable" +
+                " n on u.user_id = n.chooser where user_id = " + user_id + ") and user_id !=" + user_id + " order by RAND() LIMIT 1";
+        Statement s = connection.createStatement();
+        ResultSet rs = s.executeQuery(command);
+        if(rs.next()){
+            return rs.getString(1);
+            //System.out.println(bla);
+            //return bla;
+        }
+        return null;
+    }
+
 }

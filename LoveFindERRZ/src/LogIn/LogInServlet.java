@@ -1,5 +1,6 @@
 package LogIn;
 
+import client.User;
 import database.DataAdministrator;
 import signUp.AccountManager;
 
@@ -24,15 +25,15 @@ public class LogInServlet extends HttpServlet {
             if(accountIsReal){
                 boolean passwordIsCorrect = am.accessGranted(username, password);
                 if(passwordIsCorrect){
+                    User user = new User(am.getID(), da);
+                    request.getSession().setAttribute("user", user);
                     RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
                     dispatch.forward(request, response);
                 }else{
-                    System.out.println("bla");
                     RequestDispatcher dispatch = request.getRequestDispatcher("tryAgain.jsp");
                     dispatch.forward(request, response);
                 }
             }else{
-                System.out.println("blu");
                 RequestDispatcher dispatch = request.getRequestDispatcher("tryAgain.jsp");
                 dispatch.forward(request, response);
             }

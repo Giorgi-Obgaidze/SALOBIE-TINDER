@@ -11,7 +11,7 @@
     <title>Welcome</title>
 </head>
 <body>
-    <form action="findMatch.jsp">
+    <form action="FindMyMatch" method="post">
         <button type = "submit" >Find Friend</button>
     </form>
 
