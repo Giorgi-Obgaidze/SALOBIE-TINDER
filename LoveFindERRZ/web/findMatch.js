@@ -4,10 +4,32 @@ function findNext() {
         url: "FindMyMatch",
         type: "POST",
         data:{
-            command: "next"
+            nextCommand: "next"
         },
         success: function (data) {
-            document.getElementById("description").textContent = data;
+            if(data == "null"){
+                alert("sorry no one left");
+            }else {
+                document.getElementById("description").textContent = data;
+            }
+        }
+    });
+}
+
+function  matchPerson() {
+    $.ajax({
+        url: "FindMyMatch",
+        type: "POST",
+        data: {
+            matchCommand: "match"
+        },
+        success: function (data) {
+            if(data == "next"){
+                findNext();
+            }else {
+                findNext();
+                alert("you are Friends with " + data.substr(8));
+            }
         }
     });
 }

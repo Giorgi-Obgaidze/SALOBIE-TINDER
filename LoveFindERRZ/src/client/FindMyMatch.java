@@ -15,28 +15,58 @@ import java.util.ArrayList;
 
 public class FindMyMatch extends HttpServlet {
 
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response){
+
         DataAdministrator da = (DataAdministrator) getServletContext().getAttribute(DataAdministrator.AttributeName);
         HttpSession curr_session = request.getSession();
         User user = (User) curr_session.getAttribute("user");
-        try {
-            String id = da.getNextMatch(user.getUserId());
-            String status = da.getData("description", id);
-            //request.setAttribute("status", status);
-            String command = request.getParameter("command");
-            if(command != null) {
-                response.getWriter().write(status);
-            }else {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("findMatch.jsp");
-                dispatcher.forward(request, response);
+        String matchCommand = request.getParameter("matchCommand");
+        if(matchCommand != null){
+            try {
+                tryMatch(response, user, curr_session);
+            } catch (SQLException | IOException throwables) {
+                throwables.printStackTrace();
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        }else {
+            try {
+                String next_id = da.getNextMatch(user.getUserId());
+                if(next_id == null){
+                    response.getWriter().write("null");
+                    return;
+                }
+                String status = da.getData("description", next_id);
+                String nextCommand = request.getParameter("nextCommand");
+                String username = da.getData("username", next_id);
+                if (nextCommand != null) {
+                    String prev_user = (String) curr_session.getAttribute("prev_user");
+                    user.chooseFriends(prev_user, "reject");
+                    curr_session.setAttribute("prev_user", next_id);
+                    response.getWriter().write(username + ":" + status);
+                }else {
+                    curr_session.setAttribute("prev_user", next_id);
+                    request.setAttribute("status", username + ":" + status);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("findMatch.jsp");
+                    dispatcher.forward(request, response);
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void tryMatch(HttpServletResponse response, User user, HttpSession curr_session) throws SQLException, IOException {
+        String prev_user = (String) curr_session.getAttribute("prev_user");
+        int friendsOrFoe = user.chooseFriends(prev_user, "accept");
+        if(friendsOrFoe == 1){
+            response.getWriter().write("friends:" + user.getFriendUsername(prev_user));
+        }else{
+            response.getWriter().write("next");
         }
     }
 }

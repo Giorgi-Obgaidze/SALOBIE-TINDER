@@ -20,9 +20,10 @@
 </head>
 <body>
     <h1>find your match</h1>
-    <p id = "description"> <% request.getAttribute("status"); %> </p>
+    <p id = "description"> <%= request.getAttribute("status") %> </p>
 
     <script type="text/javascript" src = "findMatch.js"> </script>
     <button onclick="findNext()">Next</button>
+    <button onclick="matchPerson()">Match</button>
 </body>
 </html>

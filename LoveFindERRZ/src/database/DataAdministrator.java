@@ -129,8 +129,6 @@ public class DataAdministrator {
         ResultSet rs = s.executeQuery(command);
         if(rs.next()){
             return rs.getString(1);
-            //System.out.println(bla);
-            //return bla;
         }
         return null;
     }
