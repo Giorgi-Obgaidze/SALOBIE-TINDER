@@ -66,12 +66,15 @@ public class FindMyMatch extends HttpServlet {
 
     private void returnFriendsList(HttpServletResponse response, User user) throws IOException, SQLException {
         List<String> friends = user.myFriends();
+        if(friends == null) {
+            response.getWriter().write("noFriend");
+            return;
+        }
         String s = "";
         for(String frId : friends){
             s += user.getFriendUsername(frId);
         }
-        if(friends == null) response.getWriter().write(s);
-        else response.getWriter().write(friends.toString());
+        response.getWriter().write(friends.toString());
     }
 
     private void tryMatch(HttpServletResponse response, User user, HttpSession curr_session) throws SQLException, IOException {
