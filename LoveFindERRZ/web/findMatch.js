@@ -54,18 +54,33 @@ function  matchPerson() {
             matchCommand: "match"
         },
         success: function (data) {
+<<<<<<< HEAD
             if(data === "next"){
+=======
+
+            if (data === "next") {
+>>>>>>> f3250e0eaab57366a1f9431710a753e0080838ca
                 findNext();
-            }else {
+            } else {
                 alert("you are Friends with " + data.substr(8));
                 console.log("after alert");
                 findNext();
+<<<<<<< HEAD
             if(data == "next"){
                  findNext();
             }else {
                 $("#matchMessage").text("you are Friends with " + data.substr(8));
                 modal.style.display = "flex";
                  findNext();
+=======
+                if (data === "next") {
+                    findNext();
+                } else {
+                    $("#matchMessage").text("you are Friends with " + data.substr(8));
+                    modal.style.display = "flex";
+                    findNext();
+                }
+>>>>>>> f3250e0eaab57366a1f9431710a753e0080838ca
             }
         }
     }});
