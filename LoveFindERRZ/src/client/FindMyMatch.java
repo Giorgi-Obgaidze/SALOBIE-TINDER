@@ -8,16 +8,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
+//import javax.websocket.Session;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FindMyMatch extends HttpServlet {
 
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response){
+    protected synchronized void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         DataAdministrator da = (DataAdministrator) getServletContext().getAttribute(DataAdministrator.AttributeName);
         HttpSession curr_session = request.getSession();
@@ -25,11 +26,14 @@ public class FindMyMatch extends HttpServlet {
         String matchCommand = request.getParameter("matchCommand");
         if(matchCommand != null){
             try {
-                tryMatch(response, user, curr_session);
+                if(matchCommand.equals("friends")){
+                    returnFriendsList(response, user);
+                }else tryMatch(response, user, curr_session);
             } catch (SQLException | IOException throwables) {
                 throwables.printStackTrace();
             }
-        }else {
+        }
+        else{
             try {
                 String next_id = da.getNextMatch(user.getUserId());
                 if(next_id == null){
@@ -58,6 +62,16 @@ public class FindMyMatch extends HttpServlet {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void returnFriendsList(HttpServletResponse response, User user) throws IOException, SQLException {
+        List<String> friends = user.myFriends();
+        String s = "";
+        for(String frId : friends){
+            s += user.getFriendUsername(frId);
+        }
+        if(friends == null) response.getWriter().write(s);
+        else response.getWriter().write(friends.toString());
     }
 
     private void tryMatch(HttpServletResponse response, User user, HttpSession curr_session) throws SQLException, IOException {

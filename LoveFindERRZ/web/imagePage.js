@@ -96,13 +96,14 @@ function ImageUpload(){
             data.push(imgData)
         }
     }
-    console.log(data);
     $.ajax({
         url: "UploadImages",
         type: 'POST',
         data: JSON.stringify(data),
         dataType: 'json'
     });
+    console.log(data);
+
 }
 
 

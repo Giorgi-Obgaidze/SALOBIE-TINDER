@@ -11,6 +11,6 @@
     <title>Edit profile</title>
 </head>
 <body>
-    
+
 </body>
 </html>

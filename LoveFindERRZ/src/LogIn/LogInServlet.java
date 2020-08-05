@@ -24,6 +24,7 @@ public class LogInServlet extends HttpServlet {
             boolean accountIsReal = am.accountExists(username);
             if(accountIsReal){
                 boolean passwordIsCorrect = am.accessGranted(username, password);
+                System.out.println(passwordIsCorrect);
                 if(passwordIsCorrect){
                     User user = new User(am.getID(), da);
                     request.getSession().setAttribute("user", user);
