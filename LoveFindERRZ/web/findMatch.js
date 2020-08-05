@@ -1,5 +1,6 @@
 
 function findNext() {
+    console.log("findNext");
     $.ajax({
         url: "FindMyMatch",
         type: "POST",
@@ -7,9 +8,11 @@ function findNext() {
             nextCommand: "next"
         },
         success: function (data) {
-            if(data == "null"){
+            if(data === "null"){
+                console.log("null");
                 alert("sorry no one left");
             }else {
+                console.log("nextUser" + data);
                 document.getElementById("description").textContent = data;
             }
         }
@@ -24,11 +27,12 @@ function  matchPerson() {
             matchCommand: "match"
         },
         success: function (data) {
-            if(data == "next"){
+            if(data === "next"){
                 findNext();
             }else {
-                findNext();
                 alert("you are Friends with " + data.substr(8));
+                console.log("after alert");
+                findNext();
             }
         }
     });
