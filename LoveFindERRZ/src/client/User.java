@@ -16,11 +16,18 @@ public class User {
         friendList = this.dataAdministrator.getFriends(username_id);
         imageFolderPath = dataAdministrator.getImagePath(username_id);
     }
-
-    public List<String> myFriends(){
+    //ჯიბირაა: აქ ჩაგიმატე რო ცარიელი თუა ნალი დააბრუნოს თორე მერე სერვლეტის მხარეს პირდაპირ toString-ს ვეღარ შობაა
+    public List<String> myFriends() throws SQLException {
+        List<String> tot = dataAdministrator.getFriends(username_id);
+        for(String friend : tot){
+            if(!friendList.contains(friend)){
+                friendList.add(friend);
+            }
+        }
+        if(friendList.size() == 0) return null;
         return friendList;
     }
-
+    //ჯებირაა: მგონი აქაც იგივე პრობლემა მოხდება რაც ზევით იყო რა
     public String getImageFolderPath() {
         return imageFolderPath;
     }
@@ -41,7 +48,8 @@ public class User {
             } else if (curr_status.equals("waiting")) {
                 dataAdministrator.updateStatus(username_id, chosen, "match");
                 dataAdministrator.updateStatus(chosen, username_id, "match");
-                friendList.add(chosen);
+                //ჯებირა: აქ კი შობი იმას რო იმასაც ჩაუწერო რო დამეჩილია მარა იმის ფრენდლისტში
+                //რეალურად არაფერიც არ ვარდება მაგიტო დაგიმატებ ამას:
                 return 1;
             }
         } else if (status.equals("reject")) {

@@ -14,10 +14,10 @@
 </head>
 <body>
     <div class="container">
-        <h1 style="text-align:center">FIND.MEAT.FUCK</h1>
+        <h1 style="text-align:center">FIND.MEAT.იდღეგრძელეთ</h1>
         <div class="button-container">
             <div class="log-in">
-                <button id = "login" type="button" class="button" onclick="location.href='logIn.jsp'">LOG IN</button>
+                <button id = "login" type="button" class="button" onclick="moveToLogin()">LOG IN</button>
             </div>
             <div class="agree-terms">
                 <input type = "checkbox" id = "agreeTerms" name="agreeTerms" value="agree">
@@ -30,4 +30,5 @@
         </div>
     </div>
 </body>
+<script src="mainPage.js"></script>
 </html>

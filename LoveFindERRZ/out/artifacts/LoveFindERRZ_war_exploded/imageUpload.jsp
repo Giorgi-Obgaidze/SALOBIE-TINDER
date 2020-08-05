@@ -13,20 +13,7 @@
     </script>
     <link rel="stylesheet" href = "imageUpload.css">
 
-    <style>
-        .close{
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: gray;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
+
 </head>
 <body>
     <h1>Image preview on File Uploads</h1>
