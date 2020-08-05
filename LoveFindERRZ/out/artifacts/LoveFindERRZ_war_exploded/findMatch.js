@@ -54,25 +54,21 @@ function  matchPerson() {
             matchCommand: "match"
         },
         success: function (data) {
-<<<<<<< HEAD
             if(data === "next"){
                 findNext();
             }else {
                 alert("you are Friends with " + data.substr(8));
                 console.log("after alert");
                 findNext();
-=======
             if(data == "next"){
                  findNext();
             }else {
-                console.log("AGREED ON MATCH" + data.toString());
                 $("#matchMessage").text("you are Friends with " + data.substr(8));
                 modal.style.display = "flex";
                  findNext();
->>>>>>> 66a4ec4c2cbcb55ebc0d1af2765b57e3ec657c90
             }
         }
-    });
+    }});
 }
 setInterval(function () {
     console.log("getFriendsList");
