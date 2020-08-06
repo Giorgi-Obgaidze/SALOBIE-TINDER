@@ -32,10 +32,25 @@
     font-weight: bold;
 }
 
-.close:hover{}
+.close:hover{
+    cursor: pointer;
+}
 
 .close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.contentContainer{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+.randomize{
+    width: 80%;
+}
+.matchList{
+    width: 20%;
+    background-color: moccasin;
 }

@@ -40,7 +40,5 @@ public class UploadImages extends HttpServlet {
                 System.out.println(imageTitle + " saved");
             }
         }
-        RequestDispatcher r = request.getRequestDispatcher("findMatch.jsp");
-        r.forward(request, response);
     }
 }

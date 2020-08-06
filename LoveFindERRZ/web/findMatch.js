@@ -27,41 +27,10 @@ window.onclick = function(event) {
 }
 
 
-function findingAtTheBeginning(){
-    document.getElementById("description").textContent = "WAITING";
-    var next = generateNext();
-    console.log("onload next " + next);
-    // loopNextGeneration();
-}
 
-function loopNextGeneration() {
-    var next = generateNext();
-    while (next.length == 0) {
-        setTimeout(function () {
-            console.log("looping " + next);
-            next = generateNext();
-        }, 2000)
-    }
-    document.getElementById("description").textContent = next;
-}
+
 
 function findNext() {
-    var next = generateNext();
-    if (next === "null") {
-        alert("no more users for now");
-        document.getElementById("description").textContent = "WAITING";
-        while (next.length == 0) {
-            setTimeout(function () {
-                console.log(next);
-                next = generateNext();
-            }, 2000)
-        }
-    }
-    document.getElementById("description").textContent = next;
-}
-
-function generateNext(){
-    var status = "";
     $.ajax({
         url: "FindMyMatch",
         type: "POST",
@@ -69,12 +38,16 @@ function generateNext(){
             nextCommand: "next"
         },
         success: function (data) {
-            status = data;
+           if(data == "null"){
+               alert("no more people for now");
+               $("#description").text("WAITING");
+           }else{
+               $("#description").text(data);
+           }
         }
     });
-    console.log(status);
-    return status;
 }
+
 
 function  matchPerson() {
     $.ajax({
@@ -120,11 +93,25 @@ setInterval(function () {
                     var name = names[i];
                     if (loadNotification) {
                         loadNotification = false;
-                        $("#matchMessage").text("you are Friends with " + name);
-                        modal.style.display = "flex";
+                        newfriend(name);
                     }
 
                 }
             }
     }});
 }, 7000);
+
+function newfriend( name) {
+    $("#matchMessage").text("you are Friends with " + name);
+    modal.style.display = "flex";
+    var button = document. createElement("button");
+    button.innerHTML = name;
+    button.style.height = "10%";
+    button.style.width = "100%";
+    button.style.backgroundColor = "deeppink";
+    button.style.color = "white";
+    button.addEventListener("mouseout", function() {
+        document.getElementById("myID").style.backgroundColor = "pink";
+    });
+    $("#matchChat").append(button);
+}
