@@ -31,7 +31,7 @@ function findingAtTheBeginning(){
     document.getElementById("description").textContent = "WAITING";
     var next = generateNext();
     console.log("onload next " + next);
-    loopNextGeneration();
+    // loopNextGeneration();
 }
 
 function loopNextGeneration() {
