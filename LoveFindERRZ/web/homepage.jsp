@@ -15,5 +15,9 @@
         <button type = "submit" >Find Friend</button>
     </form>
 
+    <form action="FindMyMatch" method="post">
+        <button type = "submit" >Update profile</button>
+    </form>
+
 </body>
 </html>
