@@ -3,6 +3,7 @@ package client;
 import database.DataAdministrator;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -19,13 +20,15 @@ public class User {
     //ჯიბირაა: აქ ჩაგიმატე რო ცარიელი თუა ნალი დააბრუნოს თორე მერე სერვლეტის მხარეს პირდაპირ toString-ს ვეღარ შობაა
     public List<String> myFriends() throws SQLException {
         List<String> tot = dataAdministrator.getFriends(username_id);
+        List<String> res = new ArrayList<>();
         for(String friend : tot){
             if(!friendList.contains(friend)){
                 friendList.add(friend);
+                res.add(friend);
             }
         }
-        if(friendList.size() == 0) return null;
-        return friendList;
+        if(res.size() == 0) return null;
+        return res;
     }
     //ჯებირაა: მგონი აქაც იგივე პრობლემა მოხდება რაც ზევით იყო რა
     public String getImageFolderPath() {

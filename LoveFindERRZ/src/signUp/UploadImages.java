@@ -2,6 +2,8 @@ package signUp;
 
 import client.User;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +13,7 @@ import org.json.*;
 
 public class UploadImages extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         BufferedReader br = new BufferedReader((new InputStreamReader((request.getInputStream()))));
         User user = (User) request.getSession().getAttribute("user");
         String json = br.readLine();
@@ -38,5 +40,7 @@ public class UploadImages extends HttpServlet {
                 System.out.println(imageTitle + " saved");
             }
         }
+        RequestDispatcher r = request.getRequestDispatcher("findMatch.jsp");
+        r.forward(request, response);
     }
 }

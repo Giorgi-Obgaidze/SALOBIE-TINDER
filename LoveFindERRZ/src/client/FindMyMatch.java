@@ -27,7 +27,7 @@ public class FindMyMatch extends HttpServlet {
         if(matchCommand != null){
             try {
                 if(matchCommand.equals("friends")){
-                    returnFriendsList(response, user);
+                    returnFriendsList(response, user,da);
                 }else tryMatch(response, user, curr_session);
             } catch (SQLException | IOException throwables) {
                 throwables.printStackTrace();
@@ -64,7 +64,7 @@ public class FindMyMatch extends HttpServlet {
         }
     }
 
-    private void returnFriendsList(HttpServletResponse response, User user) throws IOException, SQLException {
+    private void returnFriendsList(HttpServletResponse response, User user, DataAdministrator da) throws IOException, SQLException {
         List<String> friends = user.myFriends();
         if(friends == null) {
             response.getWriter().write("noFriend");
@@ -72,9 +72,10 @@ public class FindMyMatch extends HttpServlet {
         }
         String s = "";
         for(String frId : friends){
-            s += user.getFriendUsername(frId);
+            s += da.getData("username", frId);
+            s+=" ";
         }
-        response.getWriter().write(friends.toString());
+        response.getWriter().write(s);
     }
 
     private void tryMatch(HttpServletResponse response, User user, HttpSession curr_session) throws SQLException, IOException {

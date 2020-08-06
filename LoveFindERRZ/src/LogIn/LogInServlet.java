@@ -28,7 +28,7 @@ public class LogInServlet extends HttpServlet {
                 if(passwordIsCorrect){
                     User user = new User(am.getID(), da);
                     request.getSession().setAttribute("user", user);
-                    RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
+                    RequestDispatcher dispatch = request.getRequestDispatcher("findMatch.jsp");
                     dispatch.forward(request, response);
                 }else{
                     RequestDispatcher dispatch = request.getRequestDispatcher("tryAgain.jsp");
