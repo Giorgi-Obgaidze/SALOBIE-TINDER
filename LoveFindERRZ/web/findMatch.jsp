@@ -19,7 +19,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous">
     </script>
 </head>
-<body>
+<body onload="findNext()">
 <%--    ეს პოპაპია რა--%>
     <div id="myModal" class="modal">
         <div class="modal-content">
@@ -27,11 +27,17 @@
             <p id ="matchMessage"></p>
         </div>
     </div>
+    <div class="contentContainer">
+        <div class="randomize">
+            <h1>find your match</h1>
+            <p id = "description"> <%= request.getAttribute("status") %> </p>
+            <button onclick="findNext()">Next</button>
+            <button onclick="matchPerson()">Match</button>
+        </div>
+        <div class="matchList" id="matchChat">
 
-    <h1>find your match</h1>
-    <p id = "description"> <%= request.getAttribute("status") %> </p>
-    <button onclick="findNext()">Next</button>
-    <button onclick="matchPerson()">Match</button>
+        </div>
+    </div>
 </body>
 <script type="text/javascript" src = "findMatch.js"> </script>
 </html>

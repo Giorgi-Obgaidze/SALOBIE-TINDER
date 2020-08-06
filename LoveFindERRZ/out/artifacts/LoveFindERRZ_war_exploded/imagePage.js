@@ -103,7 +103,7 @@ function ImageUpload(){
         dataType: 'json'
     });
     console.log(data);
-
+    window.location.href = "logIn.jsp";
 }
 
 
