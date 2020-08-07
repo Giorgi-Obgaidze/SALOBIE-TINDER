@@ -18,6 +18,8 @@
 <head>
     <link rel="stylesheet" href = "imageUpload.css">
     <title>Edit profile</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous">
+    </script>
 </head>
 <body>
 
@@ -25,6 +27,7 @@
     <%
         out.print("<div id=\"preview\">");
         for(String key : images.keySet()){
+            System.out.println(key);
             String image_src = "../LoveFindERRZ_war_exploded" + images.get(key);
             out.print("<img class = \"image\" id = " + key.substring(0,6) + " alt=\"loading image ...\" src= " + image_src + ">");
             out.print("<button onclick=\"deleteImage("+ key + ")\" id = \"clear"+key.substring(5,6)+"\" class = \"clear\" >X</button>");

@@ -128,20 +128,13 @@ function newfriend(name) {
 function addToList(name) {
     var button = document. createElement("button");
     button.innerHTML = name;
-<<<<<<< HEAD
-=======
     button.onclick = openForm;
->>>>>>> 69d81b2d4d2a26da78eae6b6ec91fdd7960814cb
     button.style.height = "10%";
     button.style.width = "100%";
     button.style.backgroundColor = "deeppink";
     button.style.color = "white";
     button.addEventListener("mouseout", function() {
-<<<<<<< HEAD
-        document.getElementById("myID").style.backgroundColor = "pink";
-=======
         button.style.backgroundColor = "pink";
->>>>>>> 69d81b2d4d2a26da78eae6b6ec91fdd7960814cb
     });
     $("#matchChat").append(button);
 }

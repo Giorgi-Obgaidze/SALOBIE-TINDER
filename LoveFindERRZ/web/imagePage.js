@@ -103,6 +103,7 @@ function ImageUpload(){
 }
 
 function deleteImage(data) {
+    console.log(data + "dishla");
     $.ajax({
         url: "ApplyChange",
         type: 'POST',

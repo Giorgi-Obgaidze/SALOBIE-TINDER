@@ -91,4 +91,15 @@
         <url-pattern>/RemoveImages</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <description></description>
+        <display-name>ChatServlet</display-name>
+        <servlet-name>ChatServlet</servlet-name>
+        <servlet-class>chat.ChatServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ChatServlet</servlet-name>
+        <url-pattern>/ChatServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>
