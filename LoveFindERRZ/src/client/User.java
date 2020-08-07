@@ -1,7 +1,10 @@
 package client;
 
+import chat.ChatServlet;
 import database.DataAdministrator;
 
+import java.io.*;
+import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,14 +14,15 @@ public class User {
     private List<String> friendList;
     private DataAdministrator dataAdministrator;
     private String imageFolderPath;
-    public User(String username_id, DataAdministrator dataAdministrator) throws SQLException {
+    public User(String username_id, DataAdministrator dataAdministrator) throws SQLException, IOException {
         this.username_id = username_id;
         this.dataAdministrator = dataAdministrator;
         friendList = this.dataAdministrator.getFriends(username_id);
         imageFolderPath = dataAdministrator.getImagePath(username_id);
+
     }
     //ჯიბირაა: აქ ჩაგიმატე რო ცარიელი თუა ნალი დააბრუნოს თორე მერე სერვლეტის მხარეს პირდაპირ toString-ს ვეღარ შობაა
-    public List<String> myFriends() throws SQLException {
+    public List<String> myNewFriends() throws SQLException {
         List<String> tot = dataAdministrator.getFriends(username_id);
         List<String> res = new ArrayList<>();
         for(String friend : tot){
@@ -27,6 +31,12 @@ public class User {
                 res.add(friend);
             }
         }
+        if(res.size() == 0) return null;
+        return res;
+    }
+
+    public List<String> myFriends() throws SQLException {
+        List<String> res = dataAdministrator.getFriends(username_id);
         if(res.size() == 0) return null;
         return res;
     }

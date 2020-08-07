@@ -1,5 +1,6 @@
 package signUp;
 
+import chat.ChatServlet;
 import client.User;
 import database.DataAdministrator;
 
@@ -19,6 +20,7 @@ public class AccountCreation extends HttpServlet {
         AccountManager manager = new AccountManager(administrator);
         String username = request.getParameter("username");
         String password = request.getParameter("pass");
+        User user = null;
         try {
             if(manager.accountExists(username)){
                 RequestDispatcher dispatch = request.getRequestDispatcher("accountInUse.jsp");
@@ -38,7 +40,7 @@ public class AccountCreation extends HttpServlet {
                 }else{
                     System.out.println("Sorry couldn’t create specified directory");
                 }
-                User user = new User(manager.getID(), administrator);
+                user = new User(manager.getID(), administrator);
                 request.getSession().setAttribute("user", user);
                 request.setAttribute("currUserId", manager.getID());
                 RequestDispatcher dispatch = request.getRequestDispatcher("card.jsp");
@@ -47,6 +49,7 @@ public class AccountCreation extends HttpServlet {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
+        String userId = user.getUserId();
+        request.getSession().setAttribute("fromId", userId);
     }
 }

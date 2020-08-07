@@ -37,6 +37,16 @@
         <div class="matchList" id="matchChat">
 
         </div>
+        <div class="chat-popup" id="chatBox">
+            <div class="chatName" id="chat_name">
+                <h1 id="messageTo"></h1>
+                <span class="close" onclick="chatClose()">&times;</span>
+            </div>
+            <div id="messageBox" class="message_box"></div>
+            <textarea placeholder="Type message.." id="message" required></textarea>
+            <button class="btn" onclick="sendMessage()">Send</button>
+            <button class="btn step" onclick="sendNextStep()">Next Step</button>
+        </div>
     </div>
 </body>
 <script type="text/javascript" src = "findMatch.js"> </script>
