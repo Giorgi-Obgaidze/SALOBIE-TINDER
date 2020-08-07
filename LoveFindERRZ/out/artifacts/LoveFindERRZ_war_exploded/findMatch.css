@@ -1,7 +1,7 @@
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 10;
     left: 0;
     top: 0;
     width: 100%;
@@ -53,4 +53,91 @@
 .matchList{
     width: 20%;
     background-color: moccasin;
+}
+
+.open-button {
+    background-color: #555;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    width: 280px;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+    display: none;
+    width: 20%;
+    position: fixed;
+    bottom: 0;
+    right: 22%;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+}
+
+/* Add styles to the form container */
+.chatBox {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+}
+
+/* Full-width textarea */
+.chatBox textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+    resize: none;
+}
+
+/* When the textarea gets focus, do something */
+.chatBox textarea:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Set a style for the submit/send button */
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.step {
+    background-color: deeppink;
+}
+
+/* Add some hover effects to buttons */
+.btn:hover, .open-button:hover {
+    opacity: 1;
+}
+
+.message_box{
+    width: 100%;
+    height: 150px;
+    background-color: white;
+    border-bottom: #888888;
+}
+#messageTo{
+    ffont-size: 15px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.chatName{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
