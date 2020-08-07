@@ -69,4 +69,26 @@
         <servlet-name>FindMyMatch</servlet-name>
         <url-pattern>/FindMyMatch</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <description></description>
+        <display-name>UpdateProfileServlet</display-name>
+        <servlet-name>UpdateProfileServlet</servlet-name>
+        <servlet-class>client.UpdateProfileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateProfileServlet</servlet-name>
+        <url-pattern>/UpdateProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <description></description>
+        <display-name>RemoveImages</display-name>
+        <servlet-name>RemoveImages</servlet-name>
+        <servlet-class>client.RemoveImages</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RemoveImages</servlet-name>
+        <url-pattern>/RemoveImages</url-pattern>
+    </servlet-mapping>
+
 </web-app>

@@ -106,7 +106,12 @@ function newfriend( name) {
     modal.style.display = "flex";
     var button = document. createElement("button");
     button.innerHTML = name;
-    button.style.height = "5%";
+    button.style.height = "10%";
+    button.style.width = "100%";
     button.style.backgroundColor = "deeppink";
+    button.style.color = "white";
+    button.addEventListener("mouseout", function() {
+        document.getElementById("myID").style.backgroundColor = "pink";
+    });
     $("#matchChat").append(button);
 }

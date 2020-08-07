@@ -42,6 +42,10 @@ public class User {
         return username_id;
     }
 
+    public String getDescription() throws SQLException {
+        return dataAdministrator.getData("description", username_id);
+    }
+
     public int chooseFriends(String chosen, String status) throws SQLException {
         String curr_status = dataAdministrator.getStatus(chosen, username_id);
         if (status.equals("accept")) {

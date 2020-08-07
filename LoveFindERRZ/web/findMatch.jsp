@@ -38,6 +38,9 @@
 
         </div>
     </div>
+    <form action="UpdateProfileServlet" method="post">
+        <button type = "submit" >Update profile</button>
+    </form>
 </body>
 <script type="text/javascript" src = "findMatch.js"> </script>
 </html>

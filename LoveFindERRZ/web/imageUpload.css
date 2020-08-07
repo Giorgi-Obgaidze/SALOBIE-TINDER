@@ -1,15 +1,27 @@
 #preview{
     display: flex;
 }
-.close{
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+
+
+.image{
+    height : 200px;
+    width : 300px;
+    padding : 10px;
 }
-.close:hover,
-.close:focus {
-    color: gray;
-    text-decoration: none;
-    cursor: pointer;
+
+.clear{
+    border-radius : 50%;
+    height : 100%;
+    width : auto;
+    position : relative;
+    left : -30px;
+    color : #aaa;
+    float : right;
+    font-size : 26px;
+    font-weight : bold;
+}
+
+.myText{
+    height: 20%;
+    width: 20%;
 }

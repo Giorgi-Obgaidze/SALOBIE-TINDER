@@ -18,8 +18,10 @@ public class AddDescription extends HttpServlet {
         String userId = request.getParameter("userId");
         try {
             administrator.addCard(userId, description);
-            RequestDispatcher dispatch = request.getRequestDispatcher("imageUpload.jsp");
-            dispatch.forward(request, response);
+            if(request.getParameter("changeDescription") == null) {
+                RequestDispatcher dispatch = request.getRequestDispatcher("imageUpload.jsp");
+                dispatch.forward(request, response);
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ServletException e) {

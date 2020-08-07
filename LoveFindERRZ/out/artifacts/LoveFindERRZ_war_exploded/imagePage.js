@@ -1,7 +1,7 @@
 var id = 0;
 var images = [];
 var availableID = [5, 4, 3 , 2, 1, 0];
-
+var maxImageCount = 6;
 function imagePreview() {
 
     var preview = document.querySelector('#preview');
@@ -57,8 +57,6 @@ function imagePreview() {
                     close.onclick = function () {
                         var notNeeded = document.getElementById(image.id);
                         var suicideButton = document.getElementById(close.id);
-                        console.log(image.id);
-                        console.log(close.id);
                         availableID.push(parseInt(image.id.substr(5), 10));
                         notNeeded.parentNode.removeChild(notNeeded);
                         suicideButton.parentNode.removeChild(suicideButton);
@@ -80,20 +78,18 @@ function imagePreview() {
     }
 }
 
+
 function ImageUpload(){
     let i;
     let data = [];
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < maxImageCount; i++) {
         if(availableID.indexOf(i) === -1) {
             let imageID = "image" + i.toString();
             let image = document.getElementById(imageID);
             let imageTitle = image.title;
             let imageData = image.src.replace(/^data:image\/\w+;base64,/, "");
-            console.log("image", image)
-            //console.log("imageTitle", imageTitle);
-            //console.log("imageData", imageData);
             let imgData = {elem: imageData, name: imageTitle, title: imageID};
-            data.push(imgData)
+            data.push(imgData);
         }
     }
     $.ajax({
@@ -106,6 +102,49 @@ function ImageUpload(){
     window.location.href = "logIn.jsp";
 }
 
+function deleteImage(data) {
+    $.ajax({
+        url: "ApplyChange",
+        type: 'POST',
+        data: {
+            command: "deleteImage",
+            data: data
+        }
+    });
+    var id = data.substr(5, 6);
+    availableID.push(parseInt(id));
+    var image = document.getElementById(data.substr(0,6));
+    image.parentNode.removeChild(image);
+}
+
+function submitChanges() {
+    var description = document.getElementById("info");
+    $.ajax({
+        url: "AddDescription",
+        type: 'POST',
+        data:{
+            command: "changeDescription",
+            data: description
+
+        }
+    })
+    ImageUpload();
+}
+
+function updateIdTable() {
+    var i;
+    for(i = 0; i < maxImageCount; i++){
+        var image = document.getElementById("image"+i);
+        if (image != null){
+            console.log(i);
+            for( var j = 0; j < availableID.length; j++){
+                if ( availableID[j] === i) {
+                    availableID.splice(i, 1);
+                }
+            }
+        }
+    }
+}
 
 // document.getElementById("button0").onclick = function(){
 //     consol.log("blaaaa");

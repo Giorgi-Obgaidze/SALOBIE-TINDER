@@ -8,28 +8,37 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import = "java.io.File"%>
 <%@ page import="client.User" %>
+<%@ page import="java.util.HashMap" %>
 <%
-    HttpSession curr_session = request.getSession();
-    User user = (User) curr_session.getAttribute("user");
-    String image_src = request.getServletContext().getRealPath(user.getImageFolderPath());
+    HashMap<String, String> images = (HashMap<String, String>) request.getAttribute("images");
+    String description = (String) request.getAttribute("description");
 %>
 
 <html>
 <head>
+    <link rel="stylesheet" href = "imageUpload.css">
     <title>Edit profile</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous">
+    </script>
 </head>
 <body>
+
+    <input id="browse" type="file" onchange="imagePreview()" multiple>
     <%
-        File dir = new File(image_src);
-        File[] directoryListing = dir.listFiles();
-        if (directoryListing != null) {
-            for (File child : directoryListing) {
-                child.getName();
-
-            }
-        } else {
-
+        out.print("<div id=\"preview\">");
+        for(String key : images.keySet()){
+            String image_src = "../LoveFindERRZ_war_exploded" + images.get(key);
+            out.print("<img class = \"image\" id = " + key.substring(0,6) + " alt=\"loading image ...\" src= " + image_src + ">");
+            out.print("<button onclick=\"deleteImage("+ key + ")\" id = \"clear"+key.substring(5,6)+"\" class = \"clear\" >X</button>");
         }
+        out.print("</div>");
+
+        out.print("<div id=\"desc\">");
+        out.print("<textarea class=\"myText\" id=\"info\">" + description + "</textarea>");
+        out.print("</div>");
     %>
+    <button onclick="submitChanges()" id = "submit_img" >APPLY ALL CHANGES</button>
+    <script type="text/javascript" src = "imagePage.js"></script>
+    <script>updateIdTable()</script>
 </body>
 </html>
