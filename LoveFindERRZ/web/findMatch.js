@@ -1,4 +1,3 @@
-
 var modal = document.getElementById("myModal");
 var btn = document.getElementById("myBtn");
 var chatOpen = true;
@@ -27,7 +26,7 @@ window.onload=function () {
         data: {
             command: "create"
         }
-        });
+    });
     $.ajax({
         url: "FindMyMatch",
         type: "POST",
@@ -48,7 +47,7 @@ window.onload=function () {
             }
         }});
     findNext();
-    recieveMessage();
+    getMessege();
 }
 
 
@@ -60,12 +59,12 @@ function findNext() {
             nextCommand: "next"
         },
         success: function (data) {
-           if(data == "null"){
-               alert("no more people for now");
-               $("#description").text("WAITING");
-           }else{
-               $("#description").text(data);
-           }
+            if(data == "null"){
+                alert("no more people for now");
+                $("#description").text("WAITING");
+            }else{
+                $("#description").text(data);
+            }
         }
     });
 }
@@ -81,25 +80,25 @@ function  matchPerson() {
         success: function (data) {
             if(data === "next"){
 
-            if (data === "next") {
-                findNext();
-            } else {
-                alert("you are Friends with " + data.substr(8));
-                findNext();
-            if(data == "next"){
-                 findNext();
-            }else {
-                 findNext();
                 if (data === "next") {
                     findNext();
                 } else {
-                    $("#matchMessage").text("you are Friends with " + data.substr(8));
-                    modal.style.display = "flex";
+                    alert("you are Friends with " + data.substr(8));
                     findNext();
+                    if(data == "next"){
+                        findNext();
+                    }else {
+                        findNext();
+                        if (data === "next") {
+                            findNext();
+                        } else {
+                            $("#matchMessage").text("you are Friends with " + data.substr(8));
+                            modal.style.display = "flex";
+                            findNext();
+                        }
+                    }
                 }
-            }
-        }
-    }}});
+            }}});
 }
 setInterval(function () {
     console.log("getFriendsList");
@@ -121,7 +120,7 @@ setInterval(function () {
 
                 }
             }
-    }});
+        }});
 }, 7000);
 
 function newfriend(name, id) {
@@ -192,7 +191,7 @@ function sendMessage() {
     }
 }
 
-function recieveMessage() {
+function getMessege() {
     setTimeout(function (){while(true) {
         setTimeout(function () {
             var friends = $(".friendButton");
@@ -202,7 +201,7 @@ function recieveMessage() {
                     url: "ChatServlet",
                     type: "POST",
                     data: {
-                        command: "recieve",
+                        command: "get",
                         toId: to_id
                     }, success: function (data) {
                         console.log("RECIEVED " + msg + " FROM " + to_id);

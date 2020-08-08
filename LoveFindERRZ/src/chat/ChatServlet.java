@@ -28,7 +28,7 @@ public class ChatServlet extends HttpServlet {
                 Map<String, LinkedBlockingQueue<String>> msg = new HashMap<>();
                 data.add(from_id, msg);
             }
-        }else if(command.equals("recieve")){
+        }else if(command.equals("get")){
             String to_id = req.getParameter("toId");
             LinkedBlockingQueue getMessageQueue = data.get(to_id, id);
             GetMessege gm = new GetMessege(getMessageQueue, resp);

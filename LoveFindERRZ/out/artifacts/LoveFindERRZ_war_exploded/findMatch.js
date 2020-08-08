@@ -48,7 +48,7 @@ window.onload=function () {
             }
         }});
     findNext();
-    recieveMessage();
+    getMessege();
 }
 
 
@@ -192,17 +192,20 @@ function sendMessage() {
     }
 }
 
-function recieveMessage() {
+
+
+function getMessege() {
     setTimeout(function (){while(true) {
         setTimeout(function () {
-            var friends = $(".friendButton");
+            var friends = document.getElementsByClassName("friendButton");
+            console.log("megobrebis raodeboba: " + friends.length);
             for(var i = 0; i < friends.length; i++) {
                 var to_id = friends[i].id;
                 $.ajax({
                     url: "ChatServlet",
                     type: "POST",
                     data: {
-                        command: "recieve",
+                        command: "get",
                         toId: to_id
                     }, success: function (data) {
                         console.log("RECIEVED " + msg + " FROM " + to_id);
@@ -231,6 +234,7 @@ function recieveMessage() {
                     }
                 })
             }
+            console.log("gmerto gvishvele")
         }, 15000)
     }}, 10000);
 }
