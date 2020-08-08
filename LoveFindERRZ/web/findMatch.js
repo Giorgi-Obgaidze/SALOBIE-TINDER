@@ -231,6 +231,6 @@ async function recieveMessage() {
                     }
                 })
             }
-        }, 5000)
+        }, 15000)
     }}, 10000);
 }
