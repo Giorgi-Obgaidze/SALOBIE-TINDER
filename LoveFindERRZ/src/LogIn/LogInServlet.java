@@ -28,6 +28,7 @@ public class LogInServlet extends HttpServlet {
                 if(passwordIsCorrect){
                     User user = new User(am.getID(), da);
                     request.getSession().setAttribute("user", user);
+                    request.getSession().setAttribute("fromId", user.getUserId());
                     RequestDispatcher dispatch = request.getRequestDispatcher("findMatch.jsp");
                     dispatch.forward(request, response);
                 }else{

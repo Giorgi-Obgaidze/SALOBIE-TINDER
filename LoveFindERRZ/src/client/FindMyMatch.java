@@ -1,18 +1,23 @@
 package client;
 
+import chat.HandleChat;
 import database.DataAdministrator;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-//import javax.websocket.Session;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.LinkedBlockingQueue;
+
+//import javax.websocket.Session;
 
 public class FindMyMatch extends HttpServlet {
 
@@ -23,11 +28,14 @@ public class FindMyMatch extends HttpServlet {
         DataAdministrator da = (DataAdministrator) getServletContext().getAttribute(DataAdministrator.AttributeName);
         HttpSession curr_session = request.getSession();
         User user = (User) curr_session.getAttribute("user");
+        String id =  (String)curr_session.getAttribute("fromId");
         String matchCommand = request.getParameter("matchCommand");
+        ServletContext s = getServletContext();
+        HandleChat data = (HandleChat) s.getAttribute("chatCon");
         if(matchCommand != null){
             try {
                 if(matchCommand.equals("friends")){
-                    returnNewFriendsList(response, user,da);
+                    returnNewFriendsList(response, user,da, id , data);
                 }else if(matchCommand.equals("totFriends")){
                     returnAllFriendsList(response, user,da);
                 }else tryMatch(response, user, curr_session);
@@ -76,11 +84,13 @@ public class FindMyMatch extends HttpServlet {
         for(String frId : friends){
             s += da.getData("username", frId);
             s+=" ";
+            s+= frId;
+            s+= " ";
         }
         response.getWriter().write(s);
     }
 
-    private void returnNewFriendsList(HttpServletResponse response, User user, DataAdministrator da) throws IOException, SQLException {
+    private void returnNewFriendsList(HttpServletResponse response, User user, DataAdministrator da, String fromId, HandleChat data) throws IOException, SQLException {
         List<String> friends = user.myNewFriends();
         if(friends == null) {
             response.getWriter().write("noFriend");
@@ -88,6 +98,10 @@ public class FindMyMatch extends HttpServlet {
         }
         String s = "";
         for(String frId : friends){
+            LinkedBlockingQueue<String> msgFrom = new LinkedBlockingQueue<>();
+            Map<String, LinkedBlockingQueue<String>> from = new HashMap<>();
+            from.put(frId, msgFrom);
+            data.add(fromId, from);
             s += da.getData("username", frId);
             s+=" ";
         }

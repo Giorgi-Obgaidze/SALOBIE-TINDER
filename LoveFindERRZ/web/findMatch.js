@@ -4,6 +4,9 @@ var btn = document.getElementById("myBtn");
 var chatOpen = true;
 var span = document.getElementsByClassName("close")[0];
 var loadNotification = true;
+let friendsList = new Map();
+var myId;
+var openChatId;
 span.onclick = function() {
     modal.style.display = "none";
     loadNotification = true;
@@ -32,18 +35,19 @@ window.onload=function () {
             matchCommand: "totFriends"
         },success: function(data) {
             if (data !== "noFriend") {
-                console.log("onload req >> " + data);
                 var names = data.split(" ");
                 for (var i = 0; i < names.length; i++) {
                     var name = names[i];
+                    var id = names[i + 1];
                     if (loadNotification) {
                         loadNotification = false;
-                        addToList(name);
+                        addToList(name,id);
                     }
 
                 }
             }
         }});
+    findNext();
     recieveMessage();
 }
 
@@ -107,11 +111,12 @@ setInterval(function () {
         },success: function(data) {
             if (data !== "noFriend") {
                 var names = data.split(" ");
-                for (var i = 0; i < names.length; i++) {
+                for (var i = 0; i < names.length; i+=2) {
                     var name = names[i];
+                    var id = names[i + 1];
                     if (loadNotification) {
                         loadNotification = false;
-                        newfriend(name);
+                        newfriend(name, id);
                     }
 
                 }
@@ -119,13 +124,13 @@ setInterval(function () {
     }});
 }, 7000);
 
-function newfriend(name) {
+function newfriend(name, id) {
     $("#matchMessage").text("you are Friends with " + name);
     modal.style.display = "flex";
-    addToList(name)
+    addToList(name, id)
 }
 
-function addToList(name) {
+function addToList(name, id) {
     var button = document. createElement("button");
     button.innerHTML = name;
     button.onclick = openForm;
@@ -133,6 +138,8 @@ function addToList(name) {
     button.style.width = "100%";
     button.style.backgroundColor = "deeppink";
     button.style.color = "white";
+    button.className = "friendButton";
+    button.id = id;
     button.addEventListener("mouseout", function() {
         button.style.backgroundColor = "pink";
     });
@@ -140,8 +147,8 @@ function addToList(name) {
 }
 
 function openForm(e) {
+    openChatId = e.target.id;
     var name = e.target.innerHTML;
-    console.log("CHAT MUST BE OPEN");
     $("#messageTo").text(name);
     var chatBox = document.getElementById("chatBox")
     chatBox.style.display = "flex";
@@ -173,30 +180,57 @@ function sendMessage() {
         ms.style.fontSize = "14px";
         ms.style.marginTop = "5px";
         $("#messageBox").append(ms);
+        $.ajax({
+            url:"ChatServlet",
+            type:"POST",
+            data:{
+                command:"message",
+                msg:text,
+                toId: openChatId
+            }
+        })
     }
 }
 
 async function recieveMessage() {
-
-    var chat = $("#message");
-    var text = chat.val();
-    if (chat.length != 0) {
-        chat.val("");
-        var ms = document.createElement("p");
-        ms.innerText = text;
-        ms.style.width = "70%";
-        ms.style.wordWrap = "break-word";
-        ms.style.overflowY = "hidden";
-        ms.style.height = "auto";
-        ms.style.width = "70%";
-        ms.style.backgroundColor = "blue";
-        ms.style.color = "white";
-        ms.style.paddingRight = "3px";
-        ms.style.borderRadius = "5%";
-        ms.style.marginRight = "2px";
-        ms.style.fontSize = "14px";
-        ms.style.float = "right";
-        ms.style.marginTop = "5px";
-        $("#messageBox").append(ms);
-    }
+    setTimeout(function (){while(true) {
+        setTimeout(function () {
+            var friends = $(".friendButton");
+            for(var i = 0; i < friends.length; i++) {
+                var to_id = friends[i].id;
+                $.ajax({
+                    url: "ChatServlet",
+                    type: "POST",
+                    data: {
+                        command: "recieve",
+                        toId: to_id
+                    }, success: function (data) {
+                        console.log("RECIEVED " + msg + " FROM " + to_id);
+                        if (data !== "noMessege") {
+                            if (to_id === openChatId) {
+                                var ms = document.createElement("p");
+                                ms.innerText = data;
+                                ms.style.width = "70%";
+                                ms.style.wordWrap = "break-word";
+                                ms.style.overflowY = "hidden";
+                                ms.style.height = "auto";
+                                ms.style.width = "70%";
+                                ms.style.backgroundColor = "blue";
+                                ms.style.color = "white";
+                                ms.style.paddingRight = "3px";
+                                ms.style.borderRadius = "5%";
+                                ms.style.marginRight = "2px";
+                                ms.style.fontSize = "14px";
+                                ms.style.float = "right";
+                                ms.style.marginTop = "5px";
+                                $("#messageBox").append(ms);
+                            } else {
+                                friends[i].style.backgroundColor = "red";
+                            }
+                        }
+                    }
+                })
+            }
+        }, 5000)
+    }}, 10000);
 }

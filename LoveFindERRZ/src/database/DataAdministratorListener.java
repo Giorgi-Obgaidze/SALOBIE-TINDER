@@ -1,13 +1,15 @@
 package database;
 
+import chat.HandleChat;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionAttributeListener;
+import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
-import javax.servlet.http.HttpSessionBindingEvent;
 import java.sql.SQLException;
 
 @WebListener()
@@ -26,6 +28,8 @@ public class DataAdministratorListener implements ServletContextListener,
             DataAdministrator administrator = new DataAdministrator();
             ServletContext context = sce.getServletContext();
             context.setAttribute(DataAdministrator.AttributeName, administrator);
+            HandleChat data = new HandleChat();
+            context.setAttribute("chatCon", data);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
