@@ -20,7 +20,7 @@ public class ChatServlet extends HttpServlet {
         ServletContext s = getServletContext();
         HandleChat data = (HandleChat) s.getAttribute("chatCon");
         String from_id = (String) req.getSession().getAttribute("fromId");
-        System.out.println("came to do post " + from_id);
+        System.out.println("came to do " + command + " " + from_id);
         LinkedBlockingQueue<String> msgQueue = null;
         if(command.equals("create")){
             if(!data.containsId(from_id)) {
@@ -29,6 +29,7 @@ public class ChatServlet extends HttpServlet {
                 data.add(from_id, msg);
             }
         }else if(command.equals("get")){
+            System.out.println("GOT GETMESSEGE REQUEST");
             String to_id = req.getParameter("toId");
             LinkedBlockingQueue getMessageQueue = data.get(to_id, id);
             GetMessege gm = new GetMessege(getMessageQueue, resp);
