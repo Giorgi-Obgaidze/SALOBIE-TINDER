@@ -21,6 +21,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous">
     </script>
 </head>
+
 <body>
 
     <input id="browse" type="file" onchange="imagePreview()" multiple>
@@ -30,7 +31,8 @@
             System.out.println(key);
             String image_src = "../LoveFindERRZ_war_exploded" + images.get(key);
             out.print("<img class = \"image\" id = " + key.substring(0,6) + " alt=\"loading image ...\" src= " + image_src + ">");
-            out.print("<button onclick=\"deleteImage('"+ key + "')\" id = \"clear"+key.substring(5,6)+"\" class = \"clear\" >X</button>");
+            System.out.println("clear"+key.substring(5,6));
+            out.print("<button onclick=\"deleteImage('"+ key + "')\" id = \"clear"+ key.substring(5,6) +"\" class = \"clear\" >X</button>");
         }
         out.print("</div>");
 
@@ -39,7 +41,6 @@
         out.print("</div>");
     %>
     <button onclick="submitChanges()" id = "submit_img" >APPLY ALL CHANGES</button>
-    <script type="text/javascript" src = "imagePage.js"></script>
-    <script>updateIdTable()</script>
 </body>
+<script type="text/javascript" src = "imagePage.js"></script>
 </html>

@@ -18,7 +18,7 @@ public class AddDescription extends HttpServlet {
         String userId = request.getParameter("userId");
         try {
             administrator.addCard(userId, description);
-            if(request.getParameter("changeDescription") == null) {
+            if(request.getParameter("command") == null) {
                 RequestDispatcher dispatch = request.getRequestDispatcher("imageUpload.jsp");
                 dispatch.forward(request, response);
             }
