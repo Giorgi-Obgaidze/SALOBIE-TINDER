@@ -4,7 +4,7 @@ var btn = document.getElementById("myBtn");
 var chatOpen = true;
 var span = document.getElementsByClassName("close")[0];
 var loadNotification = true;
-let friendsList = new Map();
+let messeges = new Map();
 var myId;
 var openChatId;
 
@@ -151,6 +151,11 @@ function openForm(e) {
     chatBox.style.display = "flex";
     chatBox.style.flexDirection="column";
     curChat = chatBox;
+    if(messeges.has(openChatId)) {
+        e.target.style.backgroundColor = "deeppink";
+        var t = messeges.get(openChatId);
+        writeRecievedMessege(t);
+    }
 }
 
 function chatClose() {
@@ -203,29 +208,41 @@ setInterval(function () {
                 fromId: from_id
             }, success: function (data) {
                 console.log("RECIEVED " + data + " FROM " + from_id);
-                // if (data !== "noMessege") {
-                //     if (from_id === openChatId) {
-                //         var ms = document.createElement("p");
-                //         ms.innerText = data;
-                //         ms.style.width = "70%";
-                //         ms.style.wordWrap = "break-word";
-                //         ms.style.overflowY = "hidden";
-                //         ms.style.height = "auto";
-                //         ms.style.width = "70%";
-                //         ms.style.backgroundColor = "blue";
-                //         ms.style.color = "white";
-                //         ms.style.paddingRight = "3px";
-                //         ms.style.borderRadius = "5%";
-                //         ms.style.marginRight = "2px";
-                //         ms.style.fontSize = "14px";
-                //         ms.style.float = "right";
-                //         ms.style.marginTop = "5px";
-                //         $("#messageBox").append(ms);
-                //     } else {
-                //         friends[i].style.backgroundColor = "red";
-                //     }
-                //}
+                if (data !== "noMessege") {
+                    if (from_id === openChatId) {
+                        writeRecievedMessege(data);
+                    } else {
+                        friends[i].style.backgroundColor = "red";
+                        messeges.set(from_id, data);
+                    }
+                }
             }
         })
     }
 }, 8000);
+
+function writeRecievedMessege(data) {
+    var sp = data.split("|");
+    for(var i = 0; i < sp.length; i++) {
+        var msText = sp[i];
+        var ms = document.createElement("p");
+        ms.innerText = msText;
+        ms.style.width = "70%";
+        ms.style.wordWrap = "break-word";
+        ms.style.overflowY = "hidden";
+        ms.style.height = "auto";
+        ms.style.width = "70%";
+        ms.style.backgroundColor = "blue";
+        ms.style.color = "white";
+        ms.style.paddingRight = "3px";
+        ms.style.borderRadius = "5%";
+        ms.style.marginRight = "2px";
+        ms.style.fontSize = "14px";
+        ms.style.float = "right";
+        ms.style.marginTop = "5px";
+        messeges.delete(openChatId);
+        $("#messageBox").append(ms);
+        var el = document.getElementById("messageBox");
+        el.scrollTop = el.scrollHeight;
+    }
+}

@@ -50,7 +50,7 @@ public class ChatServlet extends HttpServlet {
         String ms = "";
         while(getMessageQueue.size() != 0){
             ms += (String) getMessageQueue.poll();
-            ms += " ";
+            ms += "|";
         }
         if(ms.equals("")) ms = "noMessege";
         resp.getWriter().write(ms);
