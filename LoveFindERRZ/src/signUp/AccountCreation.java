@@ -1,6 +1,5 @@
 package signUp;
 
-import chat.ChatServlet;
 import client.User;
 import database.DataAdministrator;
 

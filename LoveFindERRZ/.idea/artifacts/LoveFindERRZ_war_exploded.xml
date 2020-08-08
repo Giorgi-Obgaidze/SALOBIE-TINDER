@@ -7,8 +7,8 @@
           <element id="module-output" name="LoveFindERRZ" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="websocket-api" />
           <element id="file-copy" path="$USER_HOME$/Downloads/jar_files/json-20131018.jar" />
+          <element id="library" level="project" name="websocket-api" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="LoveFindERRZ/web/Web" />
