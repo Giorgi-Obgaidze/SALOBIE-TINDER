@@ -188,50 +188,44 @@ function sendMessage() {
         })
     }
 }
-//
-//
-//
-// function getMessege() {
-//     setTimeout(function (){while(true) {
-//         setTimeout(function () {
-//             var friends = $(".friendButton");
-//             console.log("megobrebis raodeboba: " + friends.length);
-//             for(var i = 0; i < friends.length; i++) {
-//                 var to_id = friends[i].id;
-//                 $.ajax({
-//                     url: "ChatServlet",
-//                     type: "POST",
-//                     data: {
-//                         command: "get",
-//                         toId: to_id
-//                     }, success: function (data) {
-//                         console.log("RECIEVED " + msg + " FROM " + to_id);
-//                         if (data !== "noMessege") {
-//                             if (to_id === openChatId) {
-//                                 var ms = document.createElement("p");
-//                                 ms.innerText = data;
-//                                 ms.style.width = "70%";
-//                                 ms.style.wordWrap = "break-word";
-//                                 ms.style.overflowY = "hidden";
-//                                 ms.style.height = "auto";
-//                                 ms.style.width = "70%";
-//                                 ms.style.backgroundColor = "blue";
-//                                 ms.style.color = "white";
-//                                 ms.style.paddingRight = "3px";
-//                                 ms.style.borderRadius = "5%";
-//                                 ms.style.marginRight = "2px";
-//                                 ms.style.fontSize = "14px";
-//                                 ms.style.float = "right";
-//                                 ms.style.marginTop = "5px";
-//                                 $("#messageBox").append(ms);
-//                             } else {
-//                                 friends[i].style.backgroundColor = "red";
-//                             }
-//                         }
-//                     }
-//                 })
-//             }
-//             console.log("gmerto gvishvele")
-//         }, 15000)
-//     }}, 10000);
-// }
+
+
+setInterval(function () {
+    var friends = document.getElementsByClassName("friendButton");
+    console.log("megobrebis raodeboba: " + friends.length);
+    for (var i = 0; i < friends.length; i++) {
+        var from_id = friends[i].id;
+        $.ajax({
+            url: "ChatServlet",
+            type: "POST",
+            data: {
+                command: "get",
+                fromId: from_id
+            }, success: function (data) {
+                console.log("RECIEVED " + data + " FROM " + from_id);
+                // if (data !== "noMessege") {
+                //     if (from_id === openChatId) {
+                //         var ms = document.createElement("p");
+                //         ms.innerText = data;
+                //         ms.style.width = "70%";
+                //         ms.style.wordWrap = "break-word";
+                //         ms.style.overflowY = "hidden";
+                //         ms.style.height = "auto";
+                //         ms.style.width = "70%";
+                //         ms.style.backgroundColor = "blue";
+                //         ms.style.color = "white";
+                //         ms.style.paddingRight = "3px";
+                //         ms.style.borderRadius = "5%";
+                //         ms.style.marginRight = "2px";
+                //         ms.style.fontSize = "14px";
+                //         ms.style.float = "right";
+                //         ms.style.marginTop = "5px";
+                //         $("#messageBox").append(ms);
+                //     } else {
+                //         friends[i].style.backgroundColor = "red";
+                //     }
+                //}
+            }
+        })
+    }
+}, 8000);
