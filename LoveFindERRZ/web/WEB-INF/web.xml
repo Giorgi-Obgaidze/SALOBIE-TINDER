@@ -15,6 +15,9 @@
     <listener>
         <listener-class>database.DataAdministratorListener</listener-class>
     </listener>
+<!--    <listener>-->
+<!--        <listener-class>chat.ChatListener</listener-class>-->
+<!--    </listener>-->
     <servlet>
         <description></description>
         <display-name>AccountCreation</display-name>
