@@ -48,7 +48,7 @@ window.onload=function () {
             }
         }});
     findNext();
-    recieveMessage();
+    getMessege();
 }
 
 
@@ -192,7 +192,7 @@ function sendMessage() {
     }
 }
 
-async function recieveMessage() {
+function getMessege() {
     setTimeout(function (){while(true) {
         setTimeout(function () {
             var friends = $(".friendButton");
@@ -202,7 +202,7 @@ async function recieveMessage() {
                     url: "ChatServlet",
                     type: "POST",
                     data: {
-                        command: "recieve",
+                        command: "get",
                         toId: to_id
                     }, success: function (data) {
                         console.log("RECIEVED " + msg + " FROM " + to_id);
