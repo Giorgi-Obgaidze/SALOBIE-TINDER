@@ -29,12 +29,15 @@ public class User {
                 res.add(friend);
             }
         }
+
+        System.out.println("NEW FRIENDS" +  res.toString());
         if(res.size() == 0) return null;
         return res;
     }
 
     public List<String> myFriends() throws SQLException {
         List<String> res = dataAdministrator.getFriends(username_id);
+        System.out.println("ALL FRIENDS " + res.toString());
         if(res.size() == 0) return null;
         return res;
     }

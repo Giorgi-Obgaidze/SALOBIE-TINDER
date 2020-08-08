@@ -16,7 +16,6 @@ public class ChatServlet extends HttpServlet {
     protected synchronized void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String command = req.getParameter("command");
         HttpSession curr_session = req.getSession();
-        String id =  (String)curr_session.getAttribute("fromId");
         ServletContext s = getServletContext();
         HandleChat data = (HandleChat) s.getAttribute("chatCon");
         String from_id = (String) req.getSession().getAttribute("fromId");
@@ -31,7 +30,7 @@ public class ChatServlet extends HttpServlet {
         }else if(command.equals("get")){
             System.out.println("GOT GETMESSEGE REQUEST");
             String to_id = req.getParameter("toId");
-            LinkedBlockingQueue getMessageQueue = data.get(to_id, id);
+            LinkedBlockingQueue getMessageQueue = data.get(to_id, from_id);
             GetMessege gm = new GetMessege(getMessageQueue, resp);
             gm.start();
             try {
@@ -42,7 +41,9 @@ public class ChatServlet extends HttpServlet {
         }else {
             String ms = req.getParameter("msg");
             String to_id = req.getParameter("toId");
-            LinkedBlockingQueue sendMessageQueue = data.get(id, to_id);
+            Map<String, LinkedBlockingQueue<String>> d = data.getFriendsMap(from_id);
+            System.out.println(d.toString());
+            LinkedBlockingQueue<String> sendMessageQueue = data.get(from_id, to_id);
             try {
                 sendMessageQueue.put(ms);
             } catch (InterruptedException e) {

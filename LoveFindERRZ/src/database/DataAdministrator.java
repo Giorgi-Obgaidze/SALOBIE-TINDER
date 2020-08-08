@@ -112,7 +112,7 @@ public class DataAdministrator {
 
     public List<String> getFriends(String user_id) throws SQLException {
         List<String> myFriends = new ArrayList<>();
-        String command = "SELECT chosen FROM matchingTable WHERE status = \"match\" AND chooser = " + user_id;
+        String command = "SELECT chosen FROM matchingTable WHERE status = \"match\" AND chooser =" + user_id;
         Statement ps = connection.createStatement();
         ResultSet rs = ps.executeQuery(command);
         while (rs.next()){

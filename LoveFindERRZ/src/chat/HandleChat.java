@@ -21,4 +21,7 @@ public class HandleChat {
     public synchronized LinkedBlockingQueue<String> get(String id, String toId){
         return data.get(id).get(toId);
     }
+    public synchronized Map<String, LinkedBlockingQueue<String>> getFriendsMap(String id){
+        return data.get(id);
+    }
 }
