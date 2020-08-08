@@ -1,7 +1,8 @@
 package signUp;
 
 import client.User;
-import org.json.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

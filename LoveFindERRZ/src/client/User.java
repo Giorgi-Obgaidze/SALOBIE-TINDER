@@ -1,10 +1,8 @@
 package client;
 
-import chat.ChatServlet;
 import database.DataAdministrator;
 
-import java.io.*;
-import java.net.Socket;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,11 +59,12 @@ public class User {
         if (status.equals("accept")) {
             if (curr_status == null) {
                 dataAdministrator.makeFriend(username_id, chosen, "waiting");
-                dataAdministrator.makeFriend(chosen, username_id, "waiting");
+                //dataAdministrator.makeFriend(chosen, username_id, "waiting");
                 return 0;
             } else if (curr_status.equals("waiting")) {
                 System.out.println("waiting");
-                dataAdministrator.updateStatus(username_id, chosen, "match");
+                dataAdministrator.makeFriend(username_id, chosen, "match");
+                //dataAdministrator.updateStatus(username_id, chosen, "match");
                 dataAdministrator.updateStatus(chosen, username_id, "match");
                 //ჯებირა: აქ კი შობი იმას რო იმასაც ჩაუწერო რო დამეჩილია მარა იმის ფრენდლისტში
                 //რეალურად არაფერიც არ ვარდება მაგიტო დაგიმატებ ამას:

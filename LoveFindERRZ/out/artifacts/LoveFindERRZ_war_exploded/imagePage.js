@@ -2,6 +2,9 @@ var id = 0;
 var images = [];
 var availableID = [5, 4, 3 , 2, 1, 0];
 var maxImageCount = 6;
+window.onload = function (){
+    updateIdTable();
+}
 function imagePreview() {
 
     var preview = document.querySelector('#preview');
@@ -105,16 +108,21 @@ function ImageUpload(){
 function deleteImage(data) {
     console.log(data + "dishla");
     $.ajax({
-        url: "ApplyChange",
+        url: "RemoveImages",
         type: 'POST',
         data: {
             command: "deleteImage",
             data: data
         }
     });
-    var id = data.substr(5, 6);
+    var id = data.substring(5, 6);
     availableID.push(parseInt(id));
-    var image = document.getElementById(data.substr(0,6));
+    var image = document.getElementById(data.substring(0,6));
+    var buttonId = "clear" + id;
+    console.log("id: " + id);
+    console.log("button_id: " + buttonId);
+    var button = document.getElementById(buttonId);
+    button.parentNode.removeChild(button);
     image.parentNode.removeChild(image);
 }
 
@@ -125,10 +133,9 @@ function submitChanges() {
         type: 'POST',
         data:{
             command: "changeDescription",
-            data: description
-
+            description: description.value
         }
-    })
+    });
     ImageUpload();
 }
 

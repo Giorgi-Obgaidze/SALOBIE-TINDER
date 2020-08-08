@@ -14,9 +14,11 @@ public class RemoveImages extends HttpServlet {
         DataAdministrator da = (DataAdministrator)getServletContext().getAttribute(DataAdministrator.AttributeName);
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if(request.getParameter("deleteImage") != null){
+        if(request.getParameter("command").equals("deleteImage")){
             String image = request.getParameter("data");
-            File file = new File(user.getImageFolderPath() + "/" + image);
+            String absoluteDiskPath = getServletContext().getRealPath(user.getImageFolderPath() + "/" + image);
+            System.out.println("bla   "+ absoluteDiskPath);
+            File file = new File(absoluteDiskPath);
             if(file.delete()){
                 System.out.println("uraaa");
             }else {
