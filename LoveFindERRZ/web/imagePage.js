@@ -105,7 +105,7 @@ function ImageUpload(){
 function deleteImage(data) {
     console.log(data + "dishla");
     $.ajax({
-        url: "ApplyChange",
+        url: "RemoveImages",
         type: 'POST',
         data: {
             command: "deleteImage",
