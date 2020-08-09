@@ -1,16 +1,10 @@
 package signUp;
 
-import database.DBConnection;
 import database.DataAdministrator;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class AccountManager {
-    private Connection connect;
-    private DBConnection db;
     private DataAdministrator DAdministrator;
     private String user_id;
     public static final String AttributeName = "account manager";

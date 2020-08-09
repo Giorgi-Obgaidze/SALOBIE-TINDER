@@ -19,6 +19,7 @@ public class User {
         imageFolderPath = dataAdministrator.getImagePath(username_id);
 
     }
+    //ობგა: ჯიბირაა არა ჯებირა
     //ჯიბირაა: აქ ჩაგიმატე რო ცარიელი თუა ნალი დააბრუნოს თორე მერე სერვლეტის მხარეს პირდაპირ toString-ს ვეღარ შობაა
     public List<String> myNewFriends() throws SQLException {
         List<String> tot = dataAdministrator.getFriends(username_id);

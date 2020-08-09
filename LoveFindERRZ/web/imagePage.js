@@ -86,7 +86,7 @@ function ImageUpload(){
     let i;
     let data = [];
     for (i = 0; i < maxImageCount; i++) {
-        if(availableID.indexOf(i) === -1) {
+        if(id > 0 && availableID.indexOf(i) === -1) {
             let imageID = "image" + i.toString();
             let image = document.getElementById(imageID);
             let imageTitle = image.title;
@@ -137,6 +137,7 @@ function submitChanges() {
         }
     });
     ImageUpload();
+    window.location.href = "findMatch.jsp";
 }
 
 function updateIdTable() {

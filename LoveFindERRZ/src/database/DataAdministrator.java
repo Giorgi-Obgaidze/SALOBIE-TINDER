@@ -1,37 +1,37 @@
 package database;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataAdministrator {
     public static final String AttributeName = "DAdministrator";
-    private static List<String> IDList;
+    //private static List<String> IDList;
     private Connection connection;
 
     public DataAdministrator() throws SQLException, ClassNotFoundException {
         DBConnection connect = new DBConnection();
         connection = connect.getConnection();
-        createIdList();
+        //createIdList();
     }
 
-    private void createIdList() throws SQLException {
-        IDList = new ArrayList<>();
-        String command = "SELECT user_id FROM users;";
-        Statement stm = connection.createStatement();
-        ResultSet rs = stm.executeQuery(command);
-        while(rs.next()){
-            IDList.add(rs.getString(1));
-        }
+    public void dropTable(String table) throws SQLException {
+        PreparedStatement ps = connection.prepareStatement("truncate " + table + ";");
+        ps.executeUpdate();
     }
-
-    public List<String> getIDList(){
-        return IDList;
-    }
+//    private void createIdList() throws SQLException {
+//        IDList = new ArrayList<>();
+//        String command = "SELECT user_id FROM users;";
+//        Statement stm = connection.createStatement();
+//        ResultSet rs = stm.executeQuery(command);
+//        while(rs.next()){
+//            IDList.add(rs.getString(1));
+//        }
+//    }
+//
+//    public List<String> getIDList(){
+//        return IDList;
+//    }
 
     public String getData(String column_name, String acc_id) throws SQLException {
         Statement stm = connection.createStatement();
@@ -60,14 +60,6 @@ public class DataAdministrator {
         ps.executeUpdate();
     }
 
-    public void addImage(String id, int count,String new_image) throws FileNotFoundException, SQLException {
-        File image = new File(new_image);
-        FileInputStream fis = new FileInputStream(image);
-        String command = "Update users set image" + count + "=? where user_id=" + id;
-        PreparedStatement ps = connection.prepareStatement(command);
-        ps.setBinaryStream(1, (InputStream)fis, (int)(image.length()));
-        ps.executeUpdate();
-    }
 
     public void updateStatus(String chooser, String chosen, String status) throws SQLException {
         String command = "UPDATE matchingTable set status=? where chooser=" + chooser + " And " + "chosen = " + chosen;
@@ -106,9 +98,9 @@ public class DataAdministrator {
 
     }
 
-    public Connection getBaseConnection(){
-        return connection;
-    }
+   // public Connection getBaseConnection(){
+       // return connection;
+    //}
 
     public List<String> getFriends(String user_id) throws SQLException {
         List<String> myFriends = new ArrayList<>();
