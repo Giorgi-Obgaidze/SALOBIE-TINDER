@@ -18,7 +18,18 @@ public class HandleChat {
         data.put(id, msg);
     }
 
+    public synchronized void addQueue(String fromId, String frId){
+        Map<String, LinkedBlockingQueue<String>> from = data.get(fromId);
+        if(from.get(frId) == null){
+            LinkedBlockingQueue<String> msgFrom = new LinkedBlockingQueue<>();
+            from.put(frId, msgFrom);
+        }
+    }
+
     public synchronized LinkedBlockingQueue<String> get(String id, String toId){
         return data.get(id).get(toId);
+    }
+    public synchronized Map<String, LinkedBlockingQueue<String>> getFriendsMap(String id){
+        return data.get(id);
     }
 }

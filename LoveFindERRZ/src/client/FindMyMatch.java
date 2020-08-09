@@ -10,10 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.LinkedBlockingQueue;
 
 //import javax.websocket.Session;
 
@@ -28,32 +25,30 @@ public class FindMyMatch extends HttpServlet {
         String id = (String) curr_session.getAttribute("fromId");
         String matchCommand = request.getParameter("matchCommand");
         ServletContext s = getServletContext();
-        //HandleChat data = (HandleChat) s.getAttribute("chatCon");
+        HandleChat data = (HandleChat) s.getAttribute("chatCon");
 
         if (matchCommand == null) {
             System.out.println("noMatchCommand");
-//            try {
-//                if(matchCommand.equals("friends")){
-//                    returnNewFriendsList(response, user,da, id , data);
-//                }else if(matchCommand.equals("totFriends")){
-//                    returnAllFriendsList(response, user,da);
-//                }else tryMatch(response, user, curr_session);
-//            } catch (SQLException | IOException throwables) {
-//                throwables.printStackTrace();
-//            }
+            String friendCommand = request.getParameter("friendCommand");
             try {
-                String next_id = da.getNextMatch(user.getUserId());
-                String status = da.getData("description", next_id);
-                String username = da.getData("username", next_id);
-                curr_session.setAttribute("prev_user", next_id);
-                response.getWriter().write(username + ":" + status);
+                if(friendCommand != null){
+                    if (friendCommand.equals("friends")) {
+                        returnNewFriendsList(response, user, da, id, data);
+                    } else if (friendCommand.equals("totFriends")) {
+                        returnAllFriendsList(response, user, da);
+                    }
+                }else {
+                    String next_id = da.getNextMatch(user.getUserId());
+                    String status = da.getData("description", next_id);
+                    String username = da.getData("username", next_id);
+                    curr_session.setAttribute("prev_user", next_id);
+                    response.getWriter().write(username + ":" + status);
+                }
             } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            throwables.printStackTrace();
             }
         } else {
-            try {
-
-                if (matchCommand.equals("next")) {
+            try {if (matchCommand.equals("next")) {
                     String prev_user = (String) curr_session.getAttribute("prev_user");
                     user.chooseFriends(prev_user, "reject");
                 } else if (matchCommand.equals("match")) {
@@ -100,12 +95,12 @@ public class FindMyMatch extends HttpServlet {
         }
         String s = "";
         for (String frId : friends) {
-            LinkedBlockingQueue<String> msgFrom = new LinkedBlockingQueue<>();
-            Map<String, LinkedBlockingQueue<String>> from = new HashMap<>();
-            from.put(frId, msgFrom);
-            data.add(fromId, from);
+            data.addQueue(fromId,frId);
+            data.addQueue(frId,fromId);
             s += da.getData("username", frId);
             s += " ";
+            s+= frId;
+            s+= " ";
         }
         response.getWriter().write(s);
     }

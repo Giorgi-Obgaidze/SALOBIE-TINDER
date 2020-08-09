@@ -16,11 +16,10 @@ public class ChatServlet extends HttpServlet {
     protected synchronized void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String command = req.getParameter("command");
         HttpSession curr_session = req.getSession();
-        String id =  (String)curr_session.getAttribute("fromId");
         ServletContext s = getServletContext();
         HandleChat data = (HandleChat) s.getAttribute("chatCon");
-        String from_id = (String) req.getSession().getAttribute("fromId");
-        System.out.println("came to do post " + from_id);
+        String from_id = (String) curr_session.getAttribute("fromId");
+        System.out.println("came to do " + command + " " + from_id);
         LinkedBlockingQueue<String> msgQueue = null;
         if(command.equals("create")){
             if(!data.containsId(from_id)) {
@@ -29,19 +28,16 @@ public class ChatServlet extends HttpServlet {
                 data.add(from_id, msg);
             }
         }else if(command.equals("get")){
-            String to_id = req.getParameter("toId");
-            LinkedBlockingQueue getMessageQueue = data.get(to_id, id);
-            GetMessege gm = new GetMessege(getMessageQueue, resp);
-            gm.start();
-            try {
-                gm.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            String fromId = req.getParameter("fromId");
+            System.out.println("Got request to get message from  " + from_id);
+            LinkedBlockingQueue getMessageQueue = data.get(fromId, from_id);
+            getMessege(getMessageQueue, resp);
         }else {
             String ms = req.getParameter("msg");
             String to_id = req.getParameter("toId");
-            LinkedBlockingQueue sendMessageQueue = data.get(id, to_id);
+            Map<String, LinkedBlockingQueue<String>> d = data.getFriendsMap(from_id);
+            System.out.println(d.toString());
+            LinkedBlockingQueue<String> sendMessageQueue = data.get(from_id, to_id);
             try {
                 sendMessageQueue.put(ms);
             } catch (InterruptedException e) {
@@ -50,27 +46,13 @@ public class ChatServlet extends HttpServlet {
         }
     }
 
-    class GetMessege extends Thread{
-        private LinkedBlockingQueue getMessageQueue;
-        private HttpServletResponse resp;
-        public GetMessege(LinkedBlockingQueue getMessageQueue, HttpServletResponse resp){
-            this.getMessageQueue = getMessageQueue;
-            this.resp = resp;
+    private void getMessege(LinkedBlockingQueue getMessageQueue, HttpServletResponse resp) throws IOException {
+        String ms = "";
+        while(getMessageQueue.size() != 0){
+            ms += (String) getMessageQueue.poll();
+            ms += "|";
         }
-
-        @Override
-        public void run() {
-            String ms = "";
-            while(getMessageQueue.size() != 0){
-                ms += (String) getMessageQueue.poll();
-                ms += " ";
-            }
-            if(ms.equals("")) ms = "noMessege";
-            try {
-                resp.getWriter().write(ms);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        if(ms.equals("")) ms = "noMessege";
+        resp.getWriter().write(ms);
     }
 }

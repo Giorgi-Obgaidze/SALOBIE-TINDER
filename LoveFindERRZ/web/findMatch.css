@@ -129,6 +129,7 @@
     height: 150px;
     background-color: white;
     border-bottom: #888888;
+    overflow: scroll;
 }
 #messageTo{
     ffont-size: 15px;
