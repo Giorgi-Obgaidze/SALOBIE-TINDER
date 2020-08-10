@@ -20,13 +20,11 @@
                 <button id = "login" type="button" class="button" onclick="moveToLogin()">LOG IN</button>
             </div>
             <div class="agree-terms">
-                <input type = "checkbox" id = "agreeTerms" name="agreeTerms" value="agree">
+                <input type = "checkbox" id = "agreeTerms" name="agreeTerms">
                 <label for="agreeTerms">By checking this box you agree our </label>
                 <a href = "TermsAndConditions.jsp">Terms and Conditions</a>
             </div>
-                <form action="registerAccount.jsp">
-                    <input type = "submit" class="sign-up" name = "signUp" value="SIGN UP">
-                </form>
+            <input type = "submit" class="sign-up" name = "signUp" value="SIGN UP" onclick="checkCheckBox()">
         </div>
     </div>
 </body>

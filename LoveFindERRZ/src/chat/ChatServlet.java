@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class ChatServlet extends HttpServlet {
@@ -54,7 +53,14 @@ public class ChatServlet extends HttpServlet {
         }else if(command.equals("showpics")){
             String frId = req.getParameter("frdId");
             showPics(frId, picData, req, resp);
-        }else {
+        }else if(command.equals("checkStatus")){
+            String frId = req.getParameter("frdId");
+            try {
+                checkStatus(from_id, frId, da, resp);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        } else {
             String ms = req.getParameter("msg");
             String to_id = req.getParameter("toId");
             Map<String, LinkedBlockingQueue<String>> d = data.getFriendsMap(from_id);
@@ -68,14 +74,24 @@ public class ChatServlet extends HttpServlet {
         }
     }
 
-    private void showPics(String frId, Map<String, User> picData, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = picData.get(frId);
-        String desc = null;
-        try {
-            desc = user.getDescription();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+    private void checkStatus(String from_id, String frId, DataAdministrator da, HttpServletResponse resp) throws SQLException, IOException {
+        String status = da.getStatus(from_id, frId);
+        if(status.equals("nextstep")){
+            resp.getWriter().write("true");
+        }else{
+            resp.getWriter().write("false");
         }
+    }
+
+    private void showPics(String frId, Map<String, User> picData, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+       System.out.println("requesting pictures");
+        User user = picData.get(frId);
+//        //String desc = null;
+//        try {
+//            //desc = user.getDescription();
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
         String image_src = getServletContext().getRealPath(user.getImageFolderPath());
         System.out.println(image_src);
         Map<String, String> images = new HashMap<>();
@@ -89,8 +105,8 @@ public class ChatServlet extends HttpServlet {
             System.out.println("boooooo");
         }
         req.setAttribute("images", images);
-        req.setAttribute("description", desc);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("seeFriendsPics.jsp");
+        //req.setAttribute("description", desc);
+        RequestDispatcher dispatcher =  getServletContext().getRequestDispatcher("updateProfile.jsp");
         dispatcher.forward(req, resp);
     }
 

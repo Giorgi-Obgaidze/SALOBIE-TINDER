@@ -256,7 +256,7 @@ function writeRecievedMessege(data) {
             ms.style.fontSize = "14px";
             ms.style.float = "right";
             ms.style.marginTop = "5px";
-            ms.onclick = nextStepAccepted();
+            ms.onclick = nextStepAccepted;
         }else if(msText === "code:NEXTSTEPACCEPTED"){
             addSeePicturesButton(1);
         }else {
@@ -304,7 +304,7 @@ function addSeePicturesButton(indicator){
         var btn = document.createElement("button");
         btn.className = "btn step";
         btn.innerText = "See Pics";
-        btn.onclick = seeFriendsPics();
+        btn.onclick = seeFriendsPics;
         $("#chatBox").append(btn);
     }else{
         nxtBt.disabled = false;
@@ -322,7 +322,6 @@ function seeFriendsPics() {
         data: {
             command: "showpics",
             frdId: openChatId
-        }, success: function (data) {
         }
     });
 }

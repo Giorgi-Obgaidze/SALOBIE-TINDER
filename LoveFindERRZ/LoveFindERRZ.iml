@@ -34,7 +34,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/jar_files/json-20131018.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Oop/json-20131018.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
