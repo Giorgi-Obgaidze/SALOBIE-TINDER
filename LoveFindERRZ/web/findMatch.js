@@ -1,8 +1,10 @@
 
 var modal = document.getElementById("myModal");
+var picCon = document.getElementById("friendsPic");
 var btn = document.getElementById("myBtn");
 var chatOpen = true;
 var span = document.getElementsByClassName("close")[0];
+var span2 = document.getElementsByClassName("close")[1];
 var loadNotification = true;
 let messeges = new Map();
 var myId;
@@ -13,10 +15,16 @@ span.onclick = function() {
     loadNotification = true;
 }
 
+span2.onclick = function(){
+    removeCurFriendPictures();
+}
+
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
         loadNotification = true;
+    }else if(event.target == picCon){
+        removeCurFriendPictures();
     }
 }
 
@@ -224,7 +232,6 @@ setInterval(function () {
                 command: "get",
                 fromId: from_id
             }, success: function (data) {
-                console.log("RECIEVED " + data + " FROM " + from_id);
                 if (data !== "noMessege") {
                     if (from_id === openChatId) {
                         writeRecievedMessege(data);
@@ -317,11 +324,39 @@ function addSeePicturesButton(indicator){
 
 function seeFriendsPics() {
     $.ajax({
-        url: "ChatServlet",
+        url: "FriendsPicsServlet",
         type: "POST",
         data: {
             command: "showpics",
             frdId: openChatId
+        }, success: function (data) {
+            console.log(data);
+            if(data === "EMPTY"){
+
+            }else{
+                var picList = document.getElementById("picList");
+                var sp = data.split(" ");
+                for(var i = 0; i < sp.length; i++){
+                    var path = sp[i];
+                    var img = document.createElement("img");
+                    img.src = path;
+                    img.className = "image";
+                    picList.append(img);
+                }
+                picCon.style.display = "flex";
+                picCon.style.flexDirection = "row";
+            }
         }
     });
+}
+
+function removeCurFriendPictures() {
+    var picList = document.getElementById("picList");
+    var childSize = picList.children.length;
+    if(childSize > 1){
+        for(var i = 1; i > childSize; i++){
+            picList.removeChild(picList.childNodes[i]);
+        }
+    }
+    picCon.style.display ="none";
 }

@@ -27,6 +27,11 @@
             <p id ="matchMessage"></p>
         </div>
     </div>
+    <div id="friendsPic" class="modal">
+        <div class="modal-content" id="picList">
+            <span class="close">&times;</span>
+        </div>
+    </div>
     <div class="contentContainer">
         <div class="randomize">
             <h1>find your match</h1>

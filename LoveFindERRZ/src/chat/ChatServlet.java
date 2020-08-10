@@ -84,30 +84,30 @@ public class ChatServlet extends HttpServlet {
     }
 
     private void showPics(String frId, Map<String, User> picData, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       System.out.println("requesting pictures");
-        User user = picData.get(frId);
-//        //String desc = null;
-//        try {
-//            //desc = user.getDescription();
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
+//       System.out.println("requesting pictures");
+//        User user = picData.get(frId);
+////        //String desc = null;
+////        try {
+////            //desc = user.getDescription();
+////        } catch (SQLException throwables) {
+////            throwables.printStackTrace();
+////        }
+//        String image_src = getServletContext().getRealPath(user.getImageFolderPath());
+//        System.out.println(image_src);
+//        Map<String, String> images = new HashMap<>();
+//        File dir = new File(image_src);
+//        File[] directoryListing = dir.listFiles();
+//        if (directoryListing != null) {
+//            for (File child : directoryListing) {
+//                images.put(child.getName(), user.getImageFolderPath() + "/" + child.getName());
+//            }
+//        } else {
+//            System.out.println("boooooo");
 //        }
-        String image_src = getServletContext().getRealPath(user.getImageFolderPath());
-        System.out.println(image_src);
-        Map<String, String> images = new HashMap<>();
-        File dir = new File(image_src);
-        File[] directoryListing = dir.listFiles();
-        if (directoryListing != null) {
-            for (File child : directoryListing) {
-                images.put(child.getName(), user.getImageFolderPath() + "/" + child.getName());
-            }
-        } else {
-            System.out.println("boooooo");
-        }
-        req.setAttribute("images", images);
-        //req.setAttribute("description", desc);
-        RequestDispatcher dispatcher =  getServletContext().getRequestDispatcher("updateProfile.jsp");
-        dispatcher.forward(req, resp);
+//        req.setAttribute("images", images);
+//        //req.setAttribute("description", desc);
+//        RequestDispatcher dispatcher =  getServletContext().getRequestDispatcher("updateProfile.jsp");
+//        dispatcher.forward(req, resp);
     }
 
     private void getMessege(LinkedBlockingQueue getMessageQueue, HttpServletResponse resp) throws IOException {

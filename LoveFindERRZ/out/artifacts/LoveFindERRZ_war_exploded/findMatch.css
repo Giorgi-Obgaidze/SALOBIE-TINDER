@@ -142,3 +142,8 @@
     flex-direction: row;
     justify-content: space-between;
 }
+.image{
+    height : 200px;
+    width : 300px;
+    padding : 10px;
+}

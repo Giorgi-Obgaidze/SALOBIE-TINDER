@@ -85,6 +85,16 @@
     </servlet-mapping>
     <servlet>
         <description></description>
+        <display-name>FriendsPicsServlet</display-name>
+        <servlet-name>FriendsPicsServlet</servlet-name>
+        <servlet-class>signUp.FriendsPicsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FriendsPicsServlet</servlet-name>
+        <url-pattern>/FriendsPicsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <description></description>
         <display-name>RemoveImages</display-name>
         <servlet-name>RemoveImages</servlet-name>
         <servlet-class>client.RemoveImages</servlet-class>
