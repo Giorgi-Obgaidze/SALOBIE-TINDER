@@ -8,8 +8,8 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="module" name="JUnit4" module-name="LoveFindERRZ" />
-          <element id="library" level="project" name="websocket-api" />
-          <element id="file-copy" path="$PROJECT_DIR$/../../Oop/json-20131018.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/jar_files/json-20131018.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-8.5.56/lib/websocket-api.jar" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="LoveFindERRZ/web/Web" />
