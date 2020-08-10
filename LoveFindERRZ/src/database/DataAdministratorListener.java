@@ -1,6 +1,7 @@
 package database;
 
 import chat.HandleChat;
+import client.User;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebListener()
 public class DataAdministratorListener implements ServletContextListener,
@@ -30,6 +33,8 @@ public class DataAdministratorListener implements ServletContextListener,
             context.setAttribute(DataAdministrator.AttributeName, administrator);
             HandleChat data = new HandleChat();
             context.setAttribute("chatCon", data);
+            Map<String, User> userPicData = new HashMap<>();
+            context.setAttribute("picData", userPicData);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {

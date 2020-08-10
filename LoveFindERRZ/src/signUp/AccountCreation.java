@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Map;
 
 public class AccountCreation extends HttpServlet {
     @Override
@@ -39,8 +40,10 @@ public class AccountCreation extends HttpServlet {
                 }else{
                     System.out.println("Sorry couldn’t create specified directory");
                 }
+                Map<String, User> picData = (Map<String, User>) getServletContext().getAttribute("picData");
                 user = new User(manager.getID(), administrator);
                 request.getSession().setAttribute("user", user);
+                picData.put(user.getUserId(), user);
                 request.setAttribute("currUserId", manager.getID());
                 RequestDispatcher dispatch = request.getRequestDispatcher("card.jsp");
                 dispatch.forward(request, response);

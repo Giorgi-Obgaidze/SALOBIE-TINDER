@@ -316,5 +316,13 @@ function addSeePicturesButton(indicator){
 }
 
 function seeFriendsPics() {
-
+    $.ajax({
+        url: "ChatServlet",
+        type: "POST",
+        data: {
+            command: "showpics",
+            frdId: openChatId
+        }, success: function (data) {
+        }
+    });
 }
