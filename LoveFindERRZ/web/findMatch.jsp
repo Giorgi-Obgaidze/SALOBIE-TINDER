@@ -44,8 +44,8 @@
             </div>
             <div id="messageBox" class="message_box"></div>
             <textarea placeholder="Type message.." id="message" required></textarea>
-            <button class="btn" onclick="sendMessage()">Send</button>
-            <button class="btn step" onclick="sendNextStep()">Next Step</button>
+            <button class="btn" id ="sndBtn" onclick="sendMessage(event)">Send</button>
+            <button class="btn step" id="nextStpBtn" onclick="sendMessage(event)">Next Step</button>
         </div>
     </div>
     <form action="UpdateProfileServlet" method="post">

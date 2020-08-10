@@ -14,7 +14,7 @@ CREATE TABLE users(
     imageFolder CHAR(255)
 
 );
-
+DROP TABLE IF EXISTS matchingTable;
 CREATE TABLE matchingTable(
     chooser DECIMAL (65),
     chosen DECIMAL (65),

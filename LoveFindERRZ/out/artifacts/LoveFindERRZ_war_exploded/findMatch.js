@@ -156,23 +156,38 @@ function openForm(e) {
         var t = messeges.get(openChatId);
         writeRecievedMessege(t);
     }
+    $.ajax({
+        url: "ChatServlet",
+        type: "POST",
+        data: {
+            command: "checkStatus",
+            frdId: openChatId
+        }, success: function (data) {
+            var nxtBt = document.getElementById("nextStpBtn");
+            if(data === "true") addSeePicturesButton(1);
+            else addSeePicturesButton(0)
+        }
+    });
 }
 
 function chatClose() {
     curChat.style.display="none";
+    openChatId = -1;
 }
 
-function sendMessage() {
+function sendMessage(e) {
     var chat = $("#message");
     var text = chat.val();
-    if(chat.length != 0){
+    if(e.target.id === "nextStpBtn"){
+        text = "code:NEXTSTEP";
+    }else if (chat.length != 0) {
         chat.val("");
         var ms = document.createElement("p");
         ms.innerText = text;
         ms.style.width = "70%";
-        ms.style.wordWrap= "break-word";
-        ms.style.overflowY= "hidden";
-        ms.style.height= "auto";
+        ms.style.wordWrap = "break-word";
+        ms.style.overflowY = "hidden";
+        ms.style.height = "auto";
         ms.style.width = "70%";
         ms.style.backgroundColor = "pink";
         ms.style.color = "white";
@@ -182,16 +197,18 @@ function sendMessage() {
         ms.style.fontSize = "14px";
         ms.style.marginTop = "5px";
         $("#messageBox").append(ms);
-        $.ajax({
-            url:"ChatServlet",
-            type:"POST",
-            data:{
-                command:"message",
-                msg:text,
-                toId: openChatId.toString()
-            }
-        })
+        var el = document.getElementById("messageBox");
+        el.scrollTop = el.scrollHeight;
     }
+    $.ajax({
+        url:"ChatServlet",
+        type:"POST",
+        data:{
+            command:"message",
+            msg:text,
+            toId: openChatId.toString()
+        }
+    })
 }
 
 
@@ -225,24 +242,79 @@ function writeRecievedMessege(data) {
     var sp = data.split("|");
     for(var i = 0; i < sp.length; i++) {
         var msText = sp[i];
-        var ms = document.createElement("p");
-        ms.innerText = msText;
-        ms.style.width = "70%";
-        ms.style.wordWrap = "break-word";
-        ms.style.overflowY = "hidden";
-        ms.style.height = "auto";
-        ms.style.width = "70%";
-        ms.style.backgroundColor = "blue";
-        ms.style.color = "white";
-        ms.style.paddingRight = "3px";
-        ms.style.borderRadius = "5%";
-        ms.style.marginRight = "2px";
-        ms.style.fontSize = "14px";
-        ms.style.float = "right";
-        ms.style.marginTop = "5px";
+        var ms = null;
+        if(msText === "code:NEXTSTEP"){
+            ms = document.createElement("button");
+            ms.innerText = "NEXT STEP?";
+            ms.style.height = "auto";
+            ms.style.width = "70%";
+            ms.style.backgroundColor = "blue";
+            ms.style.color = "white";
+            ms.style.paddingRight = "3px";
+            ms.style.borderRadius = "5%";
+            ms.style.marginRight = "12%";
+            ms.style.fontSize = "14px";
+            ms.style.float = "right";
+            ms.style.marginTop = "5px";
+            ms.onclick = nextStepAccepted();
+        }else if(msText === "code:NEXTSTEPACCEPTED"){
+            addSeePicturesButton(1);
+        }else {
+            ms = document.createElement("p");
+            ms.innerText = msText;
+            ms.style.width = "70%";
+            ms.style.wordWrap = "break-word";
+            ms.style.overflowY = "hidden";
+            ms.style.height = "auto";
+            ms.style.width = "70%";
+            ms.style.backgroundColor = "blue";
+            ms.style.color = "white";
+            ms.style.paddingRight = "3px";
+            ms.style.borderRadius = "5%";
+            ms.style.marginRight = "2px";
+            ms.style.fontSize = "14px";
+            ms.style.float = "right";
+            ms.style.marginTop = "5px";
+        }
         messeges.delete(openChatId);
         $("#messageBox").append(ms);
         var el = document.getElementById("messageBox");
         el.scrollTop = el.scrollHeight;
     }
+}
+
+function nextStepAccepted() {
+    console.log("next step accepted");
+    addSeePicturesButton(1);
+    $.ajax({
+        url: "ChatServlet",
+        type: "POST",
+        data: {
+            command: "nextstep",
+            frdId: openChatId
+        }, success: function (data) {
+        }
+    });
+}
+
+function addSeePicturesButton(indicator){
+    var nxtBt = document.getElementById("nextStpBtn");
+    if(indicator === 1) {
+        nxtBt.disabled = true;
+        var btn = document.createElement("button");
+        btn.className = "btn step";
+        btn.innerText = "See Pics";
+        btn.onclick = seeFriendsPics();
+        $("#chatBox").append(btn);
+    }else{
+        nxtBt.disabled = false;
+        if(document.getElementsByClassName("btn step").length === 2) {
+            var chtb = $("#chatBox");
+            chtb.removeChild(chtb.lastChild);
+        }
+    }
+}
+
+function seeFriendsPics() {
+
 }
