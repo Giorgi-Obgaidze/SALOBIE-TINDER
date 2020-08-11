@@ -30,15 +30,12 @@ public class User {
                 res.add(friend);
             }
         }
-
-        System.out.println("NEW FRIENDS" +  res.toString());
         if(res.size() == 0) return null;
         return res;
     }
 
     public List<String> myFriends() throws SQLException {
         List<String> res = dataAdministrator.getFriends(username_id);
-        System.out.println("ALL FRIENDS " + res.toString());
         if(res.size() == 0) return null;
         return res;
     }
@@ -66,7 +63,6 @@ public class User {
                 //dataAdministrator.makeFriend(chosen, username_id, "waiting");
                 return 0;
             } else if (curr_status.equals("waiting")) {
-                System.out.println("waiting");
                 dataAdministrator.makeFriend(username_id, chosen, "match");
                 //dataAdministrator.updateStatus(username_id, chosen, "match");
                 dataAdministrator.updateStatus(chosen, username_id, "match");

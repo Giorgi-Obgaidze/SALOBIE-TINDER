@@ -10,24 +10,31 @@ let messeges = new Map();
 var myId;
 var openChatId;
 
-span.onclick = function() {
-    modal.style.display = "none";
-    loadNotification = true;
-}
 
+<<<<<<< HEAD
 span2.onclick = function(){
     removeCurFriendPictures();
 }
+=======
+>>>>>>> ceecf3b9b5ce7ada577741f9a6d7676c66189156
 
 window.onclick = function(event) {
     if (event.target == modal) {
-        modal.style.display = "none";
-        loadNotification = true;
+        closeFriendNot()
     }else if(event.target == picCon){
-        removeCurFriendPictures();
+        closeFriendPic();
     }
 }
+function closeFriendNot(){
+    modal.style.display = "none";
+    loadNotification = true;
+    console.log("close Friend NOt " + loadNotification);
+}
 
+function closeFriendPic(){
+    removeCurFriendPictures();
+    console.log("fried pcis removed");
+}
 
 window.onload=function () {
     $.ajax({
@@ -50,16 +57,13 @@ window.onload=function () {
         data: {
             friendCommand: "totFriends"
         },success: function(data) {
-            if (data !== "noFriend") {
+                if (data !== "noFriend") {
                 var names = data.split(" ");
                 for (var i = 0; i < names.length; i++) {
                     var name = names[i];
                     var id = names[i + 1];
-                    if (loadNotification) {
-                        loadNotification = false;
-                        addToList(name,id);
-                    }
-
+                    if(name !== "") addToList(name,id);
+                    i++;
                 }
             }
         }});
@@ -106,7 +110,6 @@ function  matchPerson() {
 }
 
 setInterval(function () {
-    console.log("getFriendsList");
     $.ajax({
         url: "FindMyMatch",
         type: "POST",
@@ -114,16 +117,15 @@ setInterval(function () {
             friendCommand: "friends"
         },success: function(data) {
             if (data !== "noFriend") {
-                console.log(data);
+                console.log("attantion >>>" + data + loadNotification);
                 var names = data.split(" ");
                 for (var i = 0; i < names.length; i+=2) {
                     var name = names[i];
                     var id = names[i + 1];
-                    if (loadNotification) {
+                    if (loadNotification === true) {
                         loadNotification = false;
                         newfriend(name, id);
                     }
-
                 }
             }
     }});
@@ -156,6 +158,11 @@ function openForm(e) {
     var name = e.target.innerHTML;
     $("#messageTo").text(name);
     var chatBox = document.getElementById("chatBox")
+    //clear all texts that are sent
+    var nd= document.getElementById("messageBox");
+    while (nd.firstChild) {
+        nd.removeChild(nd.firstChild);
+    }
     chatBox.style.display = "flex";
     chatBox.style.flexDirection="column";
     curChat = chatBox;
@@ -222,9 +229,9 @@ function sendMessage(e) {
 
 setInterval(function () {
     var friends = document.getElementsByClassName("friendButton");
-    console.log("megobrebis raodeboba: " + friends.length);
     for (var i = 0; i < friends.length; i++) {
         var from_id = friends[i].id;
+        var frBt = friends[i];
         $.ajax({
             url: "ChatServlet",
             type: "POST",
@@ -236,7 +243,8 @@ setInterval(function () {
                     if (from_id === openChatId) {
                         writeRecievedMessege(data);
                     } else {
-                        friends[i].style.backgroundColor = "red";
+                        console.log(frBt);
+                        frBt.style.backgroundColor = "red";
                         messeges.set(from_id, data);
                     }
                 }
@@ -291,7 +299,6 @@ function writeRecievedMessege(data) {
 }
 
 function nextStepAccepted() {
-    console.log("next step accepted");
     addSeePicturesButton(1);
     $.ajax({
         url: "ChatServlet",
@@ -307,16 +314,18 @@ function nextStepAccepted() {
 function addSeePicturesButton(indicator){
     var nxtBt = document.getElementById("nextStpBtn");
     if(indicator === 1) {
-        nxtBt.disabled = true;
-        var btn = document.createElement("button");
-        btn.className = "btn step";
-        btn.innerText = "See Pics";
-        btn.onclick = seeFriendsPics;
-        $("#chatBox").append(btn);
+        if(document.getElementsByClassName("btn step").length == 1) {
+            nxtBt.disabled = true;
+            var btn = document.createElement("button");
+            btn.className = "btn step";
+            btn.innerText = "See Pics";
+            btn.onclick = seeFriendsPics;
+            $("#chatBox").append(btn);
+        }
     }else{
         nxtBt.disabled = false;
         if(document.getElementsByClassName("btn step").length === 2) {
-            var chtb = $("#chatBox");
+            var chtb = document.getElementById("chatBox");
             chtb.removeChild(chtb.lastChild);
         }
     }
@@ -330,7 +339,6 @@ function seeFriendsPics() {
             command: "showpics",
             frdId: openChatId
         }, success: function (data) {
-            console.log(data);
             if(data === "EMPTY"){
 
             }else{
