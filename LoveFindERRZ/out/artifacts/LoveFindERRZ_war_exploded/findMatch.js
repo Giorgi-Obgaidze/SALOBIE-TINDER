@@ -225,6 +225,7 @@ setInterval(function () {
     var friends = document.getElementsByClassName("friendButton");
     for (var i = 0; i < friends.length; i++) {
         var from_id = friends[i].id;
+        var frBt = friends[i];
         $.ajax({
             url: "ChatServlet",
             type: "POST",
@@ -236,7 +237,8 @@ setInterval(function () {
                     if (from_id === openChatId) {
                         writeRecievedMessege(data);
                     } else {
-                        friends[i].style.backgroundColor = "red";
+                        console.log(frBt);
+                        frBt.style.backgroundColor = "red";
                         messeges.set(from_id, data);
                     }
                 }
@@ -317,9 +319,7 @@ function addSeePicturesButton(indicator){
     }else{
         nxtBt.disabled = false;
         if(document.getElementsByClassName("btn step").length === 2) {
-            console.log("should remove next step");
             var chtb = document.getElementById("chatBox");
-            console.log(chtb);
             chtb.removeChild(chtb.lastChild);
         }
     }
