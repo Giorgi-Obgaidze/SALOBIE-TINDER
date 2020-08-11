@@ -17,7 +17,6 @@ public class UploadImages extends HttpServlet {
         BufferedReader br = new BufferedReader((new InputStreamReader((request.getInputStream()))));
         User user = (User) request.getSession().getAttribute("user");
         String json = br.readLine();
-        //System.out.println(json);
 
         JSONArray data = new JSONArray(json);
         for (int i = 0; i < data.length(); i++) {

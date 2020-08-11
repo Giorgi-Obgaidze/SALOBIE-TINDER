@@ -17,7 +17,6 @@ span.onclick = function() {
 
 span2.onclick = function(){
     removeCurFriendPictures();
-    picCon.style.display ="none";
 }
 
 window.onclick = function(event) {
@@ -352,7 +351,6 @@ function seeFriendsPics() {
 }
 
 function removeCurFriendPictures() {
-    picCon.style.display ="none";
     var picList = document.getElementById("picList");
     var childSize = picList.children.length;
     if(childSize > 1){
@@ -360,4 +358,5 @@ function removeCurFriendPictures() {
             picList.removeChild(picList.childNodes[i]);
         }
     }
+    picCon.style.display ="none";
 }
