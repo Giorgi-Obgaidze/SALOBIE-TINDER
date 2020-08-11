@@ -33,13 +33,7 @@ public class AccountCreation extends HttpServlet {
                 relativeWebPath += manager.getID();
                 String absoluteDiskPath = getServletContext().getRealPath(relativeWebPath);
                 File file = new File(absoluteDiskPath);
-                //System.out.println(absoluteDiskPath);
                 boolean bool = file.mkdir();
-                if(bool){
-                    System.out.println("Directory created successfully");
-                }else{
-                    System.out.println("Sorry couldn’t create specified directory");
-                }
                 Map<String, User> picData = (Map<String, User>) getServletContext().getAttribute("picData");
                 user = new User(manager.getID(), administrator);
                 request.getSession().setAttribute("user", user);

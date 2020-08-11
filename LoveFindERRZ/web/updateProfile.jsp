@@ -31,7 +31,6 @@
             System.out.println(key);
             String image_src = "../LoveFindERRZ_war_exploded" + images.get(key);
             out.print("<img class = \"image\" id = " + key.substring(0,6) + " alt=\"loading image ...\" src= " + image_src + ">");
-            System.out.println("clear"+key.substring(5,6));
             out.print("<button onclick=\"deleteImage('"+ key + "')\" id = \"clear"+ key.substring(5,6) +"\" class = \"clear\" >X</button>");
         }
         out.print("</div>");

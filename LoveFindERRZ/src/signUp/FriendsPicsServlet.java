@@ -2,7 +2,6 @@ package signUp;
 
 import client.User;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,6 @@ public class FriendsPicsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, User> picData = (Map<String, User>) getServletContext().getAttribute("picData");
         String frId = req.getParameter("frdId");
-        System.out.println("requesting pictures");
         User user = picData.get(frId);
         String desc = null;
         try {
@@ -27,7 +25,6 @@ public class FriendsPicsServlet extends HttpServlet {
             throwables.printStackTrace();
         }
         String image_src = getServletContext().getRealPath(user.getImageFolderPath());
-        System.out.println(image_src);
         Map<String, String> images = new HashMap<>();
         File dir = new File(image_src);
         File[] directoryListing = dir.listFiles();
@@ -37,8 +34,6 @@ public class FriendsPicsServlet extends HttpServlet {
                s += "../LoveFindERRZ_war_exploded" + user.getImageFolderPath() + "/" + child.getName();
                s += " ";
             }
-        } else {
-            System.out.println("boooooo");
         }
         if(s != "") resp.getWriter().write(s);
         else resp.getWriter().write("EMPTY");

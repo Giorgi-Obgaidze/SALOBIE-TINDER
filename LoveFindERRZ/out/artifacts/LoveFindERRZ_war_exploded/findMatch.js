@@ -11,12 +11,6 @@ var myId;
 var openChatId;
 
 
-<<<<<<< HEAD
-span2.onclick = function(){
-    removeCurFriendPictures();
-}
-=======
->>>>>>> ceecf3b9b5ce7ada577741f9a6d7676c66189156
 
 window.onclick = function(event) {
     if (event.target == modal) {

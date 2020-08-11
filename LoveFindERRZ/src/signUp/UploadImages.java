@@ -14,11 +14,13 @@ import java.util.Base64;
 public class UploadImages extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        System.out.println("bushtebi");
         BufferedReader br = new BufferedReader((new InputStreamReader((request.getInputStream()))));
         User user = (User) request.getSession().getAttribute("user");
         String json = br.readLine();
 
         JSONArray data = new JSONArray(json);
+
         for (int i = 0; i < data.length(); i++) {
             JSONObject ithImage = data.getJSONObject(i);
             String base64data = ithImage.get("elem").toString();

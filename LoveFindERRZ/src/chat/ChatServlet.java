@@ -3,14 +3,12 @@ package chat;
 import client.User;
 import database.DataAdministrator;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -25,13 +23,11 @@ public class ChatServlet extends HttpServlet {
         ServletContext s = getServletContext();
         HandleChat data = (HandleChat) s.getAttribute("chatCon");
         String from_id = (String) curr_session.getAttribute("fromId");
-        System.out.println("came to do " + command + " " + from_id);
         Map<String, User> picData = (Map<String, User>) getServletContext().getAttribute("picData");
         LinkedBlockingQueue<String> msgQueue = null;
         DataAdministrator da = (DataAdministrator) getServletContext().getAttribute(DataAdministrator.AttributeName);
         if(command.equals("create")){
             if(!data.containsId(from_id)) {
-                System.out.println("Created new ChatServlet");
                 Map<String, LinkedBlockingQueue<String>> msg = new HashMap<>();
                 data.add(from_id, msg);
             }
@@ -47,7 +43,6 @@ public class ChatServlet extends HttpServlet {
             }
         }else if(command.equals("get")){
             String fromId = req.getParameter("fromId");
-            System.out.println("Got request to get message from  " + from_id);
             LinkedBlockingQueue getMessageQueue = data.get(fromId, from_id);
             getMessege(getMessageQueue, resp);
         }else if(command.equals("showpics")){
@@ -64,7 +59,6 @@ public class ChatServlet extends HttpServlet {
             String ms = req.getParameter("msg");
             String to_id = req.getParameter("toId");
             Map<String, LinkedBlockingQueue<String>> d = data.getFriendsMap(from_id);
-            System.out.println(d.toString());
             LinkedBlockingQueue<String> sendMessageQueue = data.get(from_id, to_id);
             try {
                 sendMessageQueue.put(ms);

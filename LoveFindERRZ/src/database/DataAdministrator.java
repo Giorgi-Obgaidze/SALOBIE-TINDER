@@ -6,34 +6,20 @@ import java.util.List;
 
 public class DataAdministrator {
     public static final String AttributeName = "DAdministrator";
-    //private static List<String> IDList;
     private Connection connection;
 
     public DataAdministrator() throws SQLException, ClassNotFoundException {
         DBConnection connect = new DBConnection();
         connection = connect.getConnection();
-        //createIdList();
     }
 
     public void dropTable(String table) throws SQLException {
         PreparedStatement ps = connection.prepareStatement("truncate " + table + ";");
         ps.executeUpdate();
     }
-//    private void createIdList() throws SQLException {
-//        IDList = new ArrayList<>();
-//        String command = "SELECT user_id FROM users;";
-//        Statement stm = connection.createStatement();
-//        ResultSet rs = stm.executeQuery(command);
-//        while(rs.next()){
-//            IDList.add(rs.getString(1));
-//        }
-//    }
-//
-//    public List<String> getIDList(){
-//        return IDList;
-//    }
 
-    public String getData(String column_name, String acc_id) throws SQLException {
+
+    public synchronized String getData(String column_name, String acc_id) throws SQLException {
         Statement stm = connection.createStatement();
         ResultSet rs = stm.executeQuery(String.format("select * from users where user_id like '%s';", acc_id));
         if(rs.next()){
@@ -42,7 +28,7 @@ public class DataAdministrator {
         return null;
     }
 
-    public void addNewAccount(String username, String password, String id, String folderPath) throws SQLException {
+    public synchronized void addNewAccount(String username, String password, String id, String folderPath) throws SQLException {
         PreparedStatement ps = connection.prepareStatement("insert into users(user_id, username, password, imageCount, imageFolder) " + "values(?, ?, ?, ?, ?)");
         ps.setString(1, id);
         ps.setString(2, username);
@@ -53,7 +39,7 @@ public class DataAdministrator {
         ps.executeUpdate();
     }
 
-    public void addCard(String id,String description) throws SQLException {
+    public synchronized void addCard(String id,String description) throws SQLException {
         String command = "Update users set description=? where user_id=" + id;
         PreparedStatement ps = connection.prepareStatement(command);
         ps.setString(1, description);
@@ -61,7 +47,7 @@ public class DataAdministrator {
     }
 
 
-    public void updateStatus(String chooser, String chosen, String status) throws SQLException {
+    public synchronized void updateStatus(String chooser, String chosen, String status) throws SQLException {
         String command = "UPDATE matchingTable set status=? where chooser=" + chooser + " And " + "chosen = " + chosen;
         PreparedStatement ps = connection.prepareStatement(command);
         ps.setString(1, status);
@@ -69,7 +55,7 @@ public class DataAdministrator {
     }
 
 
-    public void makeFriend(String chooser, String chosen, String status) throws SQLException {
+    public synchronized void makeFriend(String chooser, String chosen, String status) throws SQLException {
         PreparedStatement ps = connection.prepareStatement("insert into matchingTable(chooser, chosen, status)" + "values (?, ?, ?)");
         ps.setString(1, chooser);
         ps.setString(2, chosen);
@@ -77,7 +63,7 @@ public class DataAdministrator {
         ps.executeUpdate();
     }
 
-    public String getImagePath(String user_id) throws SQLException {
+    public synchronized String getImagePath(String user_id) throws SQLException {
         String command = "Select imageFolder From users where user_id = " + user_id;
         Statement s = connection.createStatement();
         ResultSet rs = s.executeQuery(command);
@@ -87,7 +73,7 @@ public class DataAdministrator {
         return null;
     }
 
-    public String getStatus(String chooser, String chosen) throws SQLException {
+    public synchronized String getStatus(String chooser, String chosen) throws SQLException {
         String command = "SELECT status FROM matchingTable Where chooser = " + chooser + " AND " + "chosen = " + chosen;
         Statement s = connection.createStatement();
         ResultSet rs = s.executeQuery(command);
@@ -98,11 +84,7 @@ public class DataAdministrator {
 
     }
 
-   // public Connection getBaseConnection(){
-       // return connection;
-    //}
-
-    public List<String> getFriends(String user_id) throws SQLException {
+    public synchronized List<String> getFriends(String user_id) throws SQLException {
         List<String> myFriends = new ArrayList<>();
         String command = "SELECT chosen FROM matchingTable WHERE (status = \"match\" or status = \"nextstep\") AND chooser =" + user_id;
         Statement ps = connection.createStatement();
@@ -114,7 +96,7 @@ public class DataAdministrator {
         return  myFriends;
     }
 
-    public String getNextMatch(String user_id) throws SQLException {
+    public synchronized String getNextMatch(String user_id) throws SQLException {
         String command = " select user_id from users where user_id not in (select chosen from users u join matchingTable" +
                 " n on u.user_id = n.chooser where user_id = " + user_id + ") and user_id !=" + user_id + " order by RAND() LIMIT 1";
         Statement s = connection.createStatement();

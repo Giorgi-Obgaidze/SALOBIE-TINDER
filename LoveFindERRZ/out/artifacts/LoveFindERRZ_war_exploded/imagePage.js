@@ -15,7 +15,6 @@ function imagePreview() {
     }
 
     function readImage(file) {
-        //console.log(file.toString());
         // Make sure `file.name` matches our extensions criteria
         if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
             var reader = new FileReader();
@@ -25,14 +24,8 @@ function imagePreview() {
                     return alert("image limit has been reached");
                 }else {
                     var image = document.createElement("IMG");
-                    //new Image();
                     var close = document.createElement("button");
-                    //var loc_id;
-                    //if (availableID.length > 0) {
                     var  loc_id = availableID.pop();
-                    //} else {
-                      //  loc_id = id;
-                    //}
 
                     image.id = "image" + loc_id.toString();
                     close.id = "button" + loc_id.toString();
@@ -63,14 +56,8 @@ function imagePreview() {
                         availableID.push(parseInt(image.id.substr(5), 10));
                         notNeeded.parentNode.removeChild(notNeeded);
                         suicideButton.parentNode.removeChild(suicideButton);
-                        //document.getElementById(image.id).remove();
-                        //document.getElementById(close.id).remove();
-                        //document.removeChild(notNeeded);
-                        //document.removeChild(suicideButton);
+
                     }
-                    //image.appendChild(close);
-                    // preview.appendChild(close);
-                    // preview.appendChild( image );
                 }
             });
                 reader.readAsDataURL(file);
@@ -86,13 +73,17 @@ function ImageUpload(){
     let i;
     let data = [];
     for (i = 0; i < maxImageCount; i++) {
-        if(id > 0 && availableID.indexOf(i) === -1) {
+        if(id > 0 && availableID.indexOf(i) == -1) {
             let imageID = "image" + i.toString();
+            console.log("new image IDs " + imageID);
             let image = document.getElementById(imageID);
             let imageTitle = image.title;
-            let imageData = image.src.replace(/^data:image\/\w+;base64,/, "");
-            let imgData = {elem: imageData, name: imageTitle, title: imageID};
-            data.push(imgData);
+            if(imageTitle.length != 0){
+                console.log("new image title " + imageTitle);
+                let imageData = image.src.replace(/^data:image\/\w+;base64,/, "");
+                let imgData = {elem: imageData, name: imageTitle, title: imageID};
+                data.push(imgData);
+            }
         }
     }
     $.ajax({
@@ -106,7 +97,6 @@ function ImageUpload(){
 }
 
 function deleteImage(data) {
-    console.log(data + "dishla");
     $.ajax({
         url: "RemoveImages",
         type: 'POST',
@@ -142,48 +132,18 @@ function submitChanges() {
 
 function updateIdTable() {
     var i;
+    console.log(availableID.toString());
     for(i = 0; i < maxImageCount; i++){
-        var image = document.getElementById("image"+i);
+        var image = document.getElementById("image" + i);
         if (image != null){
             console.log(i);
             for( var j = 0; j < availableID.length; j++){
-                if ( availableID[j] === i) {
-                    availableID.splice(i, 1);
+                if ( availableID[j] == i) {
+                    availableID.splice(j, 1);
+                    j--;
                 }
             }
         }
     }
+    console.log(availableID.toString());
 }
-
-// document.getElementById("button0").onclick = function(){
-//     consol.log("blaaaa");
-//     let notNeeded = document.getElementById("0");
-//     notNeeded.parentNode.removeChild(notNeeded);
-// }
-
-//document.querySelector('#file-input').addEventListener("change", previewImages);
-
-
-
-/*<!--const newFile = document.getElementById("imageID");
-const imageContainer = document.getElementById("myImage");
-const newImage = imageContainer.querySelector(".profile_image");
-const defaultMassage = imageContainer.querySelector(".default_image_message");
-
-newFile.addEventListener("change", function () {
-    const image = this.files[1];
-    if(image){
-        const fileReader = new FileReader();
-        defaultMassage.style.display = "none";
-        newImage.style.display = "block";
-
-        fileReader.addEventListener("load", function () {
-            newImage.setAttribute("src", this.result);
-        });
-        fileReader.readAsDataURL(image);
-    }else {
-        defaultMassage.style.display = null;
-        newImage.style.display = null;
-        newImage.setAttribute("src", "");
-    }
-});*/
