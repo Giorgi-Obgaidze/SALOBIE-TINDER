@@ -108,7 +108,8 @@ public class DataAdministrator {
         Statement ps = connection.createStatement();
         ResultSet rs = ps.executeQuery(command);
         while (rs.next()){
-            myFriends.add(rs.getString(1));
+            String frMem = rs.getString(1);
+            myFriends.add(frMem);
         }
         return  myFriends;
     }

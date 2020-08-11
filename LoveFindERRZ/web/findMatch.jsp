@@ -23,13 +23,13 @@
 <%--    ეს პოპაპია რა--%>
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close" onclick="closeFriendNot()">&times;</span>
             <p id ="matchMessage"></p>
         </div>
     </div>
     <div id="friendsPic" class="modal">
         <div class="modal-content" id="picList">
-            <span class="close">&times;</span>
+            <span class="close" onclick="closeFriendPic()">&times;</span>
         </div>
     </div>
     <div class="contentContainer">

@@ -28,7 +28,6 @@ public class FindMyMatch extends HttpServlet {
         HandleChat data = (HandleChat) s.getAttribute("chatCon");
 
         if (matchCommand == null) {
-            System.out.println("noMatchCommand");
             String friendCommand = request.getParameter("friendCommand");
             try {
                 if(friendCommand != null){
@@ -89,7 +88,7 @@ public class FindMyMatch extends HttpServlet {
 
     private void returnNewFriendsList(HttpServletResponse response, User user, DataAdministrator da, String fromId, HandleChat data) throws IOException, SQLException {
         List<String> friends = user.myNewFriends();
-        if (friends == null) {
+        if (friends == null || friends.size() == 0) {
             response.getWriter().write("noFriend");
             return;
         }
